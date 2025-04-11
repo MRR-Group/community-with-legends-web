@@ -9,7 +9,7 @@ on:
       - '**.ts'
       - '**.jsx'
       - '**.tsx'
-      - 'package.json'
+      - '../../web/package.json'
       - 'package.lock'
 
 jobs:
