@@ -25,29 +25,30 @@ function RegisterPage() {
           <h1 className='text-4xl text-center pb-5'>Register</h1>
           <label className='flex flex-col text-xl'>
             Enter your name
-            <input className='bg-background-light rounded text-lg p-1 outline-none mt-2'
+            <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
                    placeholder='name' type='name' {...register('name')}/>
           </label>
 
           <label className='flex flex-col text-xl'>
             Enter your email
-            <input className='bg-background-light rounded text-lg p-1 outline-none mt-2'
+            <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
                    placeholder='email' type='email' {...register('email')}/>
           </label>
 
           <label className='flex flex-col text-xl'>
             Enter your password
-            <input className='bg-background-light rounded text-lg p-1 outline-none mt-2'
+            <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
                    placeholder='password' type='password' {...register('password')}/>
           </label>
 
           <label className='flex flex-col text-xl'>
             Confirm your password
-            <input className='bg-background-light rounded text-lg p-1 outline-none mt-2'
+            <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
                    placeholder='repeat password' type='password' {...register('confirmPassword')}/>
           </label>
-
-          <input type='submit' value='register'/>
+          <div className='flex justify-center w-full pb-4 pt-1'>
+            <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl' type='submit' value='Register'/>
+          </div>
         </form>
       </div>
     </div>
