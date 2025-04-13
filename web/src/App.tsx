@@ -20,15 +20,15 @@ function App() {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className=''>
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col bg-background'>
         <input placeholder='name' type='name' {...register('name')}/>
         <input placeholder='email' type='email' {...register('email')}/>
         <input placeholder='password' type='password' {...register('password')}/>
         <input placeholder='repeat password' type='password' {...register('confirmPassword')}/>
         <input type='submit' value='register'/>
       </form>
-    </>
+    </div>
   )
 }
 
