@@ -32,6 +32,8 @@ function ResetPasswordPage() {
                    placeholder='token' type='token' {...register('token')}/>
           </label>
 
+          <AuthRedirectText message={"You don't have a reset token?"} actionText={"to get one"} link={"/forgot-password"}/>
+
           <label className='flex flex-col text-xl'>
             Enter your password
             <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
@@ -44,9 +46,7 @@ function ResetPasswordPage() {
                    placeholder='repeat password' type='password' {...register('confirmPassword')}/>
           </label>
 
-          <AuthRedirectText message={"You don't have a reset token?"} actionText={"to get one"}/>
-
-          <AuthRedirectText message={"Did you remember your password?"} actionText={"to login"}/>
+          <AuthRedirectText message={"Did you remember your password?"} actionText={"to login"} link={"/"}/>
 
           <div className='flex justify-center w-full pb-4 pt-1'>
             <input className='p-0.5 bg-primary rounded-lg max-w-44 w-full text-xl' type='submit' value='Reset password'/>

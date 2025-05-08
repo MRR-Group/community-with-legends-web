@@ -23,9 +23,9 @@ function ForgotPasswordPage() {
                    placeholder='email' type='email' {...register('email')}/>
           </label>
 
-          <AuthRedirectText message={"You already have a reset token?"} actionText={"to reset password"}/>
+          <AuthRedirectText message={"You already have a reset token?"} actionText={"to reset password"} link={"/reset-password"}/>
 
-          <AuthRedirectText message={"Did you remember your password?"} actionText={"to login"}/>
+          <AuthRedirectText message={"Did you remember your password?"} actionText={"to login"} link={"/"}/>
 
           <div className='flex justify-center w-full pb-4 pt-1'>
             <input className='p-0.5 bg-primary rounded-lg max-w-32 w-full text-xl' type='submit' value='Send code'/>

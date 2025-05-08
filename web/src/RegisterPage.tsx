@@ -49,7 +49,7 @@ function RegisterPage() {
                    placeholder='repeat password' type='password' {...register('confirmPassword')}/>
           </label>
 
-          <AuthRedirectText message={"Already have an account?"} actionText={"to login"}/>
+          <AuthRedirectText message={"Already have an account?"} actionText={"to login"} link={"/"}/>
 
           <div className='flex justify-center w-full pb-4 pt-1'>
             <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl' type='submit' value='Register'/>

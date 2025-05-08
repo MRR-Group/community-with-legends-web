@@ -25,7 +25,7 @@ function LoginPage() {
                    placeholder='email' type='email' {...register('email')}/>
           </label>
 
-          <AuthRedirectText message={"You don't have an account?"} actionText={"to register"}/>
+          <AuthRedirectText message={"You don't have an account?"} actionText={"to register"} link={"/register"}/>
 
           <label className='flex flex-col text-xl'>
             Enter your password
@@ -33,7 +33,7 @@ function LoginPage() {
                    placeholder='password' type='password' {...register('password')}/>
           </label>
 
-          <AuthRedirectText message={"You don't remember?"} actionText={"to reset it"}/>
+          <AuthRedirectText message={"You don't remember?"} actionText={"to reset it"} link={"/forgot-password"}/>
 
           <div className='flex justify-center w-full pb-4 pt-1'>
             <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl' type='submit' value='Login'/>
