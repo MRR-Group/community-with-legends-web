@@ -1,8 +1,7 @@
 import {Credential} from "../entities/credential.ts";
-import {User} from "../entities/user.ts";
 
 export interface RegisterService {
-    register(name: string, credential: Credential): Promise<User>;
+    register(name: string, credential: Credential): Promise<void>;
 }
 
 export class RegisterUseCase {
@@ -12,9 +11,13 @@ export class RegisterUseCase {
         this._registerService = registerService;
     }
 
-    public async register(name: string, email: string, password: string): Promise<User> {
+    public async register(name: string, email: string, password: string, confirmPassword: string): Promise<void> {
+        if(password !== confirmPassword) {
+            throw new Error('Passwords does not match')
+        }
+
         const credentials = new Credential(email, password);
 
-        return this._registerService.register(name, credentials);
+        await this._registerService.register(name, credentials);
     }
 }
