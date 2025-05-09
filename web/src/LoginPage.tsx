@@ -1,6 +1,8 @@
 import {SubmitHandler, useForm} from "react-hook-form";
 import twitchLogo from "./assets/Twitch.svg";
 import AuthRedirectText from "./components/AuthRedirectText.tsx";
+import {AuthService} from "../../core/src/services/authService.ts";
+import {LoginUseCase} from "../../core/src/useCases/login.ts";
 
 type LoginForm = {
   email: string,
@@ -10,7 +12,12 @@ type LoginForm = {
 function LoginPage() {
   const {register, handleSubmit} = useForm<LoginForm>();
 
-  const onSubmit: SubmitHandler<LoginForm> = async () => {
+  const onSubmit: SubmitHandler<LoginForm> = async (data) => {
+    const auth = new AuthService();
+
+    const useCase = new LoginUseCase(auth);
+    const userId = await useCase.login(data.email, data.password);
+    console.log(userId);
   }
 
   return (
