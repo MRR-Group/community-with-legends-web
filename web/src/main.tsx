@@ -5,6 +5,7 @@ import RegisterPage from './RegisterPage.tsx'
 import LoginPage from "./LoginPage.tsx";
 import ForgotPasswordPage from "./ForgotPasswordPage.tsx";
 import ResetPasswordPage from "./ResetPasswordPage.tsx";
+import FeedPage from "./FeedPage.tsx";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "/reset-password",
     Component: ResetPasswordPage,
+  },
+  {
+    path: "/feed",
+    Component: FeedPage,
   },
 ]);
 
