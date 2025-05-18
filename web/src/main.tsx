@@ -10,10 +10,11 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router";
+import {CoreProvider} from "./providers/coreProvider.tsx";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/login",
     Component: LoginPage,
   },
   {
@@ -29,14 +30,16 @@ const router = createBrowserRouter([
     Component: ResetPasswordPage,
   },
   {
-    path: "/feed",
+    path: "/",
     Component: FeedPage,
   },
 ]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <CoreProvider>
+      <RouterProvider router={router}/>
+    </CoreProvider>
   </StrictMode>,
 
 )

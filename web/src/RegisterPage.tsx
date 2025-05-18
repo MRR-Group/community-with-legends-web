@@ -1,9 +1,8 @@
 import {SubmitHandler, useForm} from "react-hook-form";
-import {AuthService} from '../../core/src/services/authService';
 import twitchLogo from './assets/Twitch.svg';
 import AuthRedirectText from "./components/AuthRedirectText.tsx";
-import {RegisterUseCase} from "../../core/src/useCases/register.ts";
 import {useNavigate} from "react-router";
+import {useCore} from "./providers/coreProvider.tsx";
 
 type RegisterForm = {
   name: string,
@@ -14,14 +13,12 @@ type RegisterForm = {
 
 function RegisterPage() {
   const {register, handleSubmit} = useForm<RegisterForm>();
+  const {registerUseCase} = useCore();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<RegisterForm> = async (data) => {
-    const auth = new AuthService();
-
-    const useCase = new RegisterUseCase(auth);
-    await useCase.register(data.name, data.email, data.password, data.confirmPassword)
-    navigate("/")
+    await registerUseCase.register(data.name, data.email, data.password, data.confirmPassword)
+    navigate("/login")
   }
 
   return (

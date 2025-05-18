@@ -1,19 +1,28 @@
 import {Credential} from "../entities/credential.ts";
-
-export interface LoginService {
-  login(credential: Credential): Promise<number>;
-}
+import {AuthService} from "../services/authService.ts";
+import AuthRepository from "../repositories/authRepository.ts";
+import {User} from "../entities/user.ts";
+import UserRepository from "../repositories/userRepository.ts";
 
 export class LoginUseCase {
-  private _LoginService: LoginService;
+  private _authService: AuthService;
+  private _authRepository: AuthRepository;
+  private _userRepository: UserRepository;
 
-  constructor(LoginService: LoginService) {
-    this._LoginService = LoginService;
+  constructor(authService: AuthService, authRepository: AuthRepository, userRepository: UserRepository) {
+    this._authService = authService;
+    this._authRepository = authRepository;
+    this._userRepository = userRepository;
   }
 
-  public async login(email: string, password: string): Promise<number> {
+  public async login(email: string, password: string): Promise<User> {
     const credentials = new Credential(email, password);
 
-    return await this._LoginService.login(credentials);
+    const id = await this._authService.login(credentials);
+    const user = await this._userRepository.byId(id);
+
+    this._authRepository.User = user;
+
+    return user;
   }
 }

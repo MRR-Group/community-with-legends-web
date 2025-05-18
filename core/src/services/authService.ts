@@ -1,9 +1,7 @@
-import {RegisterService} from "../useCases/register.ts";
 import {Credential} from "../entities/credential.ts";
 import axios from "axios";
-import {LoginService} from "../useCases/login.ts";
 
-export class AuthService implements RegisterService, LoginService {
+export class AuthService {
     public async register(name: string, credential: Credential): Promise<void> {
         await axios.post(`/api/auth/register`, {
             name: name,

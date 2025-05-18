@@ -1,14 +1,11 @@
 import {Credential} from "../entities/credential.ts";
-
-export interface RegisterService {
-    register(name: string, credential: Credential): Promise<void>;
-}
+import {AuthService} from "../services/authService.ts";
 
 export class RegisterUseCase {
-    private _registerService: RegisterService;
+    private _authService: AuthService;
 
-    constructor(registerService: RegisterService) {
-        this._registerService = registerService;
+    constructor(authService: AuthService) {
+        this._authService = authService;
     }
 
     public async register(name: string, email: string, password: string, confirmPassword: string): Promise<void> {
@@ -18,6 +15,6 @@ export class RegisterUseCase {
 
         const credentials = new Credential(email, password);
 
-        await this._registerService.register(name, credentials);
+        await this._authService.register(name, credentials);
     }
 }
