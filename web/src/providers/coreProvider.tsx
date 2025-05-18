@@ -4,21 +4,32 @@ import {RegisterUseCase} from "../../../core/src/useCases/register.ts";
 import {createContext, PropsWithChildren, useContext} from "react";
 import AuthRepository from "../../../core/src/repositories/authRepository.ts";
 import UserRepository from "../../../core/src/repositories/userRepository.ts";
+import {LogoutUseCase} from "../../../core/src/useCases/logout.ts";
 
 interface CoreContextType {
   authService: AuthService,
   authRepository: AuthRepository,
   userRepository: UserRepository,
-  loginUseCase: LoginUseCase,
   registerUseCase: RegisterUseCase,
+  loginUseCase: LoginUseCase,
+  logoutUseCase: LogoutUseCase,
 }
 
 const authService = new AuthService();
 const authRepository = new AuthRepository();
 const userRepository = new UserRepository();
-const loginUseCase = new LoginUseCase(authService, authRepository, userRepository);
 const registerUseCase = new RegisterUseCase(authService);
-const defaultContext:CoreContextType = {authService, authRepository, userRepository, loginUseCase, registerUseCase}
+const loginUseCase = new LoginUseCase(authService, authRepository, userRepository);
+const logoutUseCase = new LogoutUseCase(authService, authRepository);
+
+const defaultContext:CoreContextType = {
+  authService,
+  authRepository,
+  userRepository,
+  registerUseCase,
+  loginUseCase,
+  logoutUseCase,
+}
 
 const Context = createContext<CoreContextType>(defaultContext);
 

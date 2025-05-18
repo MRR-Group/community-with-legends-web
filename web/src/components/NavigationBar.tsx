@@ -2,13 +2,20 @@ import Logo from '../assets/logo.png'
 import NavButton from "./NavButton.tsx";
 import Show from "./Show.tsx";
 import {useCore} from "../providers/coreProvider.tsx";
+import {useNavigate} from "react-router";
 
 interface NavigationBarProps {
   active: string,
 }
 
 export default function NavigationBar({active}: NavigationBarProps) {
-  const {authRepository} = useCore();
+  const {authRepository, logoutUseCase} = useCore();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logoutUseCase.logout();
+    navigate("/login");
+  }
 
   return (
     <nav className='w-full p-6 flex justify-between items-center'>
@@ -46,6 +53,7 @@ export default function NavigationBar({active}: NavigationBarProps) {
 
           <Show when={authRepository.isLogged}>
             <div
+              onClick={handleLogout}
               className='flex items-center border-1 rounded-xl p-1.5 px-4 text-text transition-colors delay-100 hover:text-primary cursor-pointer'>
               Log out
             </div>
