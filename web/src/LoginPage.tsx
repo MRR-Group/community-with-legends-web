@@ -47,7 +47,9 @@ function LoginPage() {
           <div>
             <h1 className='text-2xl text-center'>OR</h1>
             <h2 className='text-lg text-center'> Log in via</h2>
-            <img src={twitchLogo} alt='TwitchLogo' className='mx-auto pb-5 pt-5 cursor-pointer'/>
+            <a href={import.meta.env.VITE_TWITCH_LOGIN_URL}>
+              <img src={twitchLogo} alt='TwitchLogo' className='mx-auto pb-5 pt-5 cursor-pointer'/>
+            </a>
           </div>
           <a href="/" className='flex justify-center w-full pb-4 pt-1'>
             <div className='flex justify-center text-lg text-center cursor-pointer'>

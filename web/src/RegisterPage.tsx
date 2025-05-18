@@ -50,7 +50,7 @@ function RegisterPage() {
                    placeholder='repeat password' type='password' {...register('confirmPassword')}/>
           </label>
 
-          <AuthRedirectText message={"Already have an account?"} actionText={"to login"} link={"/"}/>
+          <AuthRedirectText message={"Already have an account?"} actionText={"to login"} link={"/login"}/>
 
           <div className='flex justify-center w-full pb-4 pt-1'>
             <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl cursor-pointer' type='submit' value='Register'/>
@@ -59,7 +59,9 @@ function RegisterPage() {
           <div>
             <h1 className='text-2xl text-center'>OR</h1>
             <h2 className='text-lg text-center'> Register via</h2>
-            <img src={twitchLogo} alt='TwitchLogo' className='mx-auto pb-5 pt-5 cursor-pointer'/>
+            <a href={import.meta.env.VITE_TWITCH_REGISTER_URL}>
+              <img src={twitchLogo} alt='TwitchLogo' className='mx-auto pb-5 pt-5 cursor-pointer'/>
+            </a>
           </div>
         </form>
       </div>
