@@ -42,13 +42,18 @@ function LoginPage() {
           <AuthRedirectText message={"You don't remember?"} actionText={"to reset it"} link={"/forgot-password"}/>
 
           <div className='flex justify-center w-full pb-4 pt-1'>
-            <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl' type='submit' value='Login'/>
+            <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl cursor-pointer' type='submit' value='Login'/>
           </div>
           <div>
             <h1 className='text-2xl text-center'>OR</h1>
             <h2 className='text-lg text-center'> Log in via</h2>
-            <img src={twitchLogo} alt='TwitchLogo' className='mx-auto pb-5 pt-5'/>
+            <img src={twitchLogo} alt='TwitchLogo' className='mx-auto pb-5 pt-5 cursor-pointer'/>
           </div>
+          <a href="/" className='flex justify-center w-full pb-4 pt-1'>
+            <div className='flex justify-center text-lg text-center cursor-pointer'>
+              View as a <p className='text-primary pl-1'>guest</p>
+            </div>
+          </a>
         </form>
       </div>
     </div>

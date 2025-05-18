@@ -53,13 +53,13 @@ function RegisterPage() {
           <AuthRedirectText message={"Already have an account?"} actionText={"to login"} link={"/"}/>
 
           <div className='flex justify-center w-full pb-4 pt-1'>
-            <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl' type='submit' value='Register'/>
+            <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl cursor-pointer' type='submit' value='Register'/>
           </div>
 
           <div>
             <h1 className='text-2xl text-center'>OR</h1>
             <h2 className='text-lg text-center'> Register via</h2>
-            <img src={twitchLogo} alt='TwitchLogo' className='mx-auto pb-5 pt-5'/>
+            <img src={twitchLogo} alt='TwitchLogo' className='mx-auto pb-5 pt-5 cursor-pointer'/>
           </div>
         </form>
       </div>
