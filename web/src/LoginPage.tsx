@@ -2,9 +2,12 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import twitchLogo from "./assets/Twitch.svg";
 import AuthRedirectText from "./components/AuthRedirectText.tsx";
 import {useCore} from "./providers/coreProvider.tsx";
-import {useNavigate} from "react-router";
+import {useNavigate, useSearchParams} from "react-router";
 import useErrorHandler from "./utils/useErrorHandler.ts";
 import Input from "./components/Input.tsx";
+import {useEffect} from "react";
+import toast from "react-hot-toast";
+
 
 type LoginForm = {
   email: string,
@@ -16,6 +19,15 @@ function LoginPage() {
   const {loginUseCase} = useCore();
   const navigate = useNavigate();
   const {errors, handleError, clearErrors} = useErrorHandler();
+  const [params] = useSearchParams();
+
+  useEffect(() => {
+    const message = params.get('message');
+
+    if (message !== undefined) {
+      toast.error(message);
+    }
+  }, [params]);
 
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     try {
