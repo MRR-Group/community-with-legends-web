@@ -2,6 +2,8 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import AuthRedirectText from "./components/AuthRedirectText.tsx";
 import Input from "./components/Input.tsx";
 import useErrorHandler from "./utils/useErrorHandler.ts";
+import {useCore} from "./providers/coreProvider.tsx";
+import {useNavigate} from "react-router";
 
 type ResetPasswordForm = {
   email: string,
@@ -12,9 +14,19 @@ type ResetPasswordForm = {
 
 function ResetPasswordPage() {
   const {register, handleSubmit} = useForm<ResetPasswordForm>();
-  const {errors} = useErrorHandler();
+  const {errors, handleError, clearErrors} = useErrorHandler();
+  const {resetPasswordUseCase} = useCore();
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<ResetPasswordForm> = async () => {
+  const onSubmit: SubmitHandler<ResetPasswordForm> = async (data) => {
+    try {
+      clearErrors();
+      await resetPasswordUseCase.resetPassword(data.email, data.token, data.password, data.confirmPassword);
+      navigate("/login");
+    }
+    catch (e: any) {
+      handleError(e);
+    }
   }
 
   return (
@@ -60,7 +72,7 @@ function ResetPasswordPage() {
               name='confirmPassword'
           />
 
-          <AuthRedirectText message={"Did you remember your password?"} actionText={"to login"} link={"/"}/>
+          <AuthRedirectText message={"Did you remember your password?"} actionText={"to login"} link={"/login"}/>
 
           <div className='flex justify-center w-full pb-4 pt-1'>
             <input className='p-0.5 bg-primary rounded-lg max-w-44 w-full text-xl' type='submit' value='Reset password'/>

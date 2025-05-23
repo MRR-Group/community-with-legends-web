@@ -1,5 +1,6 @@
 import {Credential} from "../entities/credential.ts";
 import {AuthService} from "../services/authService.ts";
+import PasswordsDoNotMatchException from "../exceptions/passwordsDoNotMatchException.ts";
 
 export class RegisterUseCase {
     private _authService: AuthService;
@@ -10,7 +11,7 @@ export class RegisterUseCase {
 
     public async register(name: string, email: string, password: string, confirmPassword: string): Promise<void> {
         if(password !== confirmPassword) {
-            throw new Error('Passwords does not match')
+            throw new PasswordsDoNotMatchException();
         }
 
         const credentials = new Credential(email, password);

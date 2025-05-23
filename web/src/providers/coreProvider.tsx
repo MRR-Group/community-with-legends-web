@@ -6,6 +6,8 @@ import AuthRepository from "../../../core/src/repositories/authRepository.ts";
 import UserRepository from "../../../core/src/repositories/userRepository.ts";
 import {LogoutUseCase} from "../../../core/src/useCases/logout.ts";
 import {RefreshUseCase} from "../../../core/src/useCases/refreshUseCase.ts";
+import {ResetPasswordUseCase} from "../../../core/src/useCases/resetPassword.ts";
+import {SendResetPasswordEmailUseCase} from "../../../core/src/useCases/sendResetPasswordEmail.ts";
 
 interface CoreContextType {
   authService: AuthService,
@@ -15,6 +17,8 @@ interface CoreContextType {
   loginUseCase: LoginUseCase,
   logoutUseCase: LogoutUseCase,
   refreshUseCase: RefreshUseCase,
+  resetPasswordUseCase: ResetPasswordUseCase,
+  sendResetPasswordEmailUseCase: SendResetPasswordEmailUseCase,
 }
 
 const authService = new AuthService();
@@ -24,6 +28,8 @@ const registerUseCase = new RegisterUseCase(authService);
 const loginUseCase = new LoginUseCase(authService, authRepository, userRepository);
 const logoutUseCase = new LogoutUseCase(authService, authRepository);
 const refreshUseCase = new RefreshUseCase(authService, authRepository, userRepository)
+const resetPasswordUseCase = new ResetPasswordUseCase(authService);
+const sendResetPasswordEmailUseCase = new SendResetPasswordEmailUseCase(authService);
 
 const defaultContext:CoreContextType = {
   authService,
@@ -33,6 +39,8 @@ const defaultContext:CoreContextType = {
   loginUseCase,
   logoutUseCase,
   refreshUseCase,
+  resetPasswordUseCase,
+  sendResetPasswordEmailUseCase,
 }
 
 const Context = createContext<CoreContextType>(defaultContext);

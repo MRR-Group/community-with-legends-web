@@ -2,6 +2,8 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import AuthRedirectText from "./components/AuthRedirectText.tsx";
 import Input from "./components/Input.tsx";
 import useErrorHandler from "./utils/useErrorHandler.ts";
+import {useCore} from "./providers/coreProvider.tsx";
+import {useNavigate} from "react-router";
 
 type ForgotPasswordForm = {
   email: string,
@@ -9,9 +11,19 @@ type ForgotPasswordForm = {
 
 function ForgotPasswordPage() {
   const {register, handleSubmit} = useForm<ForgotPasswordForm>();
-  const {errors} = useErrorHandler();
+  const {errors, handleError, clearErrors} = useErrorHandler();
+  const {sendResetPasswordEmailUseCase} = useCore();
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<ForgotPasswordForm> = async () => {
+  const onSubmit: SubmitHandler<ForgotPasswordForm> = async (data) => {
+    try {
+      clearErrors();
+      await sendResetPasswordEmailUseCase.sendEmail(data.email);
+      navigate("/reset-password");
+    }
+    catch (e: any) {
+      handleError(e);
+    }
   }
 
   return (
