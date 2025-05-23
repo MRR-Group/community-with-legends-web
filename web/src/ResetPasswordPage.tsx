@@ -1,5 +1,7 @@
 import {SubmitHandler, useForm} from "react-hook-form";
 import AuthRedirectText from "./components/AuthRedirectText.tsx";
+import Input from "./components/Input.tsx";
+import useErrorHandler from "./utils/useErrorHandler.ts";
 
 type ResetPasswordForm = {
   email: string,
@@ -10,6 +12,7 @@ type ResetPasswordForm = {
 
 function ResetPasswordPage() {
   const {register, handleSubmit} = useForm<ResetPasswordForm>();
+  const {errors} = useErrorHandler();
 
   const onSubmit: SubmitHandler<ResetPasswordForm> = async () => {
   }
@@ -19,32 +22,43 @@ function ResetPasswordPage() {
       <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px]'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex gap-4 flex-col bg-background px-5 rounded-lg min-w-80'>
           <h1 className='text-4xl text-center pb-5 text-wrap max-w-72 leading-tight'>Reset your password</h1>
+          <Input
+              register={register}
+              errors={errors}
+              title='Enter your email'
+              type='email'
+              placeholder='email'
+              name='email'
+          />
 
-          <label className='flex flex-col text-xl'>
-            Enter your email
-            <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
-                   placeholder='email' type='email' {...register('email')}/>
-          </label>
-
-          <label className='flex flex-col text-xl'>
-            Enter your token
-            <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
-                   placeholder='token' type='token' {...register('token')}/>
-          </label>
+          <Input
+              register={register}
+              errors={errors}
+              title='Enter your token'
+              type='text'
+              placeholder='token'
+              name='token'
+          />
 
           <AuthRedirectText message={"You don't have a reset token?"} actionText={"to get one"} link={"/forgot-password"}/>
 
-          <label className='flex flex-col text-xl'>
-            Enter your password
-            <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
-                   placeholder='password' type='password' {...register('password')}/>
-          </label>
+          <Input
+              register={register}
+              errors={errors}
+              title='Enter your password'
+              type='password'
+              placeholder='password'
+              name='password'
+          />
 
-          <label className='flex flex-col text-xl'>
-            Confirm your password
-            <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
-                   placeholder='repeat password' type='password' {...register('confirmPassword')}/>
-          </label>
+          <Input
+              register={register}
+              errors={errors}
+              title='Confirm your password'
+              type='password'
+              placeholder='repeat password'
+              name='confirmPassword'
+          />
 
           <AuthRedirectText message={"Did you remember your password?"} actionText={"to login"} link={"/"}/>
 

@@ -1,9 +1,11 @@
+import InvalidEmailException from "../exceptions/invalidEmailException.ts";
+
 export class Email {
     private _value: string;
 
     public constructor(value: string) {
         if(!this.isValidEmail(value)) {
-            throw new Error('Invalid email');
+            throw new InvalidEmailException();
         }
 
         this._value = value;

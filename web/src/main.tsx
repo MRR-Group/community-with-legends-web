@@ -11,6 +11,7 @@ import {
   RouterProvider,
 } from "react-router";
 import {CoreProvider} from "./providers/coreProvider.tsx";
+import { Toaster } from 'react-hot-toast';
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <CoreProvider>
+      <Toaster position='bottom-left' toastOptions={{className: "toast-message", style: {}, duration: 50000}}></Toaster>
       <RouterProvider router={router}/>
     </CoreProvider>
   </StrictMode>,

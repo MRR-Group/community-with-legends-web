@@ -11,13 +11,7 @@ export default defineConfig(config => {
       tailwindcss(),
     ],
     server: {
-      cors: true,
-      proxy: {
-        "/api": {
-          target: env.VITE_SERVER,
-          changeOrigin: true,
-        }
-      }
+      allowedHosts: [env.VITE_DOMAIN]
     },
     test: {
       environment: 'jsdom',

@@ -3,6 +3,8 @@ import twitchLogo from "./assets/Twitch.svg";
 import AuthRedirectText from "./components/AuthRedirectText.tsx";
 import {useCore} from "./providers/coreProvider.tsx";
 import {useNavigate} from "react-router";
+import useErrorHandler from "./utils/useErrorHandler.ts";
+import Input from "./components/Input.tsx";
 
 type LoginForm = {
   email: string,
@@ -13,10 +15,17 @@ function LoginPage() {
   const {register, handleSubmit} = useForm<LoginForm>();
   const {loginUseCase} = useCore();
   const navigate = useNavigate();
+  const {errors, handleError, clearErrors} = useErrorHandler();
 
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
-    await loginUseCase.login(data.email, data.password);
-    navigate("/");
+    try {
+      clearErrors();
+      await loginUseCase.login(data.email, data.password);
+      navigate("/");
+    }
+    catch (e: any) {
+      handleError(e);
+    }
   }
 
   return (
@@ -24,20 +33,25 @@ function LoginPage() {
       <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px]'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex gap-4 flex-col bg-background px-5 rounded-lg min-w-80'>
           <h1 className='text-4xl text-center pb-5'>Login</h1>
-
-          <label className='flex flex-col text-xl'>
-            Enter your email
-            <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
-                   placeholder='email' type='email' {...register('email')}/>
-          </label>
+          <Input
+              register={register}
+              errors={errors}
+              title='Enter your email'
+              type='email'
+              placeholder='email'
+              name='email'
+          />
 
           <AuthRedirectText message={"You don't have an account?"} actionText={"to register"} link={"/register"}/>
 
-          <label className='flex flex-col text-xl'>
-            Enter your password
-            <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
-                   placeholder='password' type='password' {...register('password')}/>
-          </label>
+          <Input
+              register={register}
+              errors={errors}
+              title='Enter your password'
+              type='password'
+              placeholder='password'
+              name='password'
+          />
 
           <AuthRedirectText message={"You don't remember?"} actionText={"to reset it"} link={"/forgot-password"}/>
 

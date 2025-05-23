@@ -1,4 +1,5 @@
 import {Email} from "./email.ts";
+import InvalidPasswordException from "../exceptions/invalidPasswordException.ts";
 
 export class Credential {
     private _email: Email;
@@ -6,7 +7,7 @@ export class Credential {
 
     public constructor(email: string, password: string) {
         if(!this.isValidPassword(password)) {
-            throw new Error('Password must be of 8 characters, contain lower case and upper case letter');
+            throw new InvalidPasswordException();
         }
 
         this._email = new Email(email);

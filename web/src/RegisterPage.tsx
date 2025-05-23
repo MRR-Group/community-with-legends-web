@@ -3,6 +3,8 @@ import twitchLogo from './assets/Twitch.svg';
 import AuthRedirectText from "./components/AuthRedirectText.tsx";
 import {useNavigate} from "react-router";
 import {useCore} from "./providers/coreProvider.tsx";
+import useErrorHandler from "./utils/useErrorHandler.ts";
+import Input from "./components/Input.tsx";
 
 type RegisterForm = {
   name: string,
@@ -15,10 +17,17 @@ function RegisterPage() {
   const {register, handleSubmit} = useForm<RegisterForm>();
   const {registerUseCase} = useCore();
   const navigate = useNavigate();
+  const {errors, handleError, clearErrors} = useErrorHandler();
 
   const onSubmit: SubmitHandler<RegisterForm> = async (data) => {
-    await registerUseCase.register(data.name, data.email, data.password, data.confirmPassword)
-    navigate("/login")
+    try {
+      clearErrors();
+      await registerUseCase.register(data.name, data.email, data.password, data.confirmPassword)
+      navigate("/login")
+    }
+    catch (e: any) {
+      handleError(e);
+    }
   }
 
   return (
@@ -26,29 +35,41 @@ function RegisterPage() {
       <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px]'>
         <form onSubmit={handleSubmit(onSubmit)} className='flex gap-4 flex-col bg-background px-5 rounded-lg min-w-80'>
           <h1 className='text-4xl text-center pb-5'>Register</h1>
-          <label className='flex flex-col text-xl'>
-            Enter your name
-            <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
-                   placeholder='name' type='name' {...register('name')}/>
-          </label>
+          <Input
+              register={register}
+              errors={errors}
+              title='Enter your name'
+              type='text'
+              placeholder='name'
+              name='name'
+          />
 
-          <label className='flex flex-col text-xl'>
-            Enter your email
-            <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
-                   placeholder='email' type='email' {...register('email')}/>
-          </label>
+          <Input
+              register={register}
+              errors={errors}
+              title='Enter your email'
+              type='email'
+              placeholder='email'
+              name='email'
+          />
 
-          <label className='flex flex-col text-xl'>
-            Enter your password
-            <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
-                   placeholder='password' type='password' {...register('password')}/>
-          </label>
+          <Input
+              register={register}
+              errors={errors}
+              title='Enter your password'
+              type='password'
+              placeholder='password'
+              name='password'
+          />
 
-          <label className='flex flex-col text-xl'>
-            Confirm your password
-            <input className='bg-background-light rounded text-sm p-2 outline-none mt-2'
-                   placeholder='repeat password' type='password' {...register('confirmPassword')}/>
-          </label>
+          <Input
+              register={register}
+              errors={errors}
+              title='Confirm your password'
+              type='password'
+              placeholder='repeat password'
+              name='confirmPassword'
+          />
 
           <AuthRedirectText message={"Already have an account?"} actionText={"to login"} link={"/login"}/>
 
