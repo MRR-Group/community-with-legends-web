@@ -1,25 +1,14 @@
 import {Email} from "./email.ts";
+import {Entity} from "./entity.ts";
 
-export class User {
-    private _id: number;
-    private _name: string;
-    private _email: Email;
+export class User extends Entity {
+    public readonly name: string;
+    public readonly email: Email;
 
     public constructor(id: number, name: string, email: string) {
-        this._id = id;
-        this._name = name;
-        this._email = new Email(email);
-    }
+        super(id);
 
-    public get id(): number {
-        return this._id;
-    }
-
-    public get name(): string {
-        return this._name;
-    }
-
-    public get email(): string {
-        return this._email.value;
+        this.name = name;
+        this.email = new Email(email);
     }
 }

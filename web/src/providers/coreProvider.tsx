@@ -8,11 +8,13 @@ import {LogoutUseCase} from "../../../core/src/useCases/logout.ts";
 import {RefreshUseCase} from "../../../core/src/useCases/refreshUseCase.ts";
 import {ResetPasswordUseCase} from "../../../core/src/useCases/resetPassword.ts";
 import {SendResetPasswordEmailUseCase} from "../../../core/src/useCases/sendResetPasswordEmail.ts";
+import PostsRepository from "../../../core/src/repositories/postsRepository.ts";
 
 interface CoreContextType {
   authService: AuthService,
   authRepository: AuthRepository,
   userRepository: UserRepository,
+  postsRepository: PostsRepository,
   registerUseCase: RegisterUseCase,
   loginUseCase: LoginUseCase,
   logoutUseCase: LogoutUseCase,
@@ -24,6 +26,7 @@ interface CoreContextType {
 const authService = new AuthService();
 const authRepository = new AuthRepository();
 const userRepository = new UserRepository();
+const postsRepository = new PostsRepository()
 const registerUseCase = new RegisterUseCase(authService);
 const loginUseCase = new LoginUseCase(authService, authRepository, userRepository);
 const logoutUseCase = new LogoutUseCase(authService, authRepository);
@@ -35,6 +38,7 @@ const defaultContext:CoreContextType = {
   authService,
   authRepository,
   userRepository,
+  postsRepository,
   registerUseCase,
   loginUseCase,
   logoutUseCase,

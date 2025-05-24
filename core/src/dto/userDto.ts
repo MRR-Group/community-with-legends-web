@@ -6,7 +6,7 @@ export default interface UserDto {
   email: string;
   name: string;
   avatar: string;
-  permisions: string[];
+  permissions: string[];
   created_at: string;
 }
 export function userDtoToEntity(data: UserDto):User {
