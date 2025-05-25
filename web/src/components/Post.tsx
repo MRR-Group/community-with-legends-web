@@ -5,16 +5,18 @@ import ReplyButton from "./ReplyButton.tsx";
 
 interface PostProps {
     data: PostModel,
+    onPostPreview?: () => void,
 }
 
-export default function Post({data}: PostProps) {
+export default function Post({data, onPostPreview}: PostProps) {
     return(
-        <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px] max-w-96 md:max-w-128'>
+        <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px] max-w-96 md:max-w-128'
+            onClick={onPostPreview}>
             <div className='flex flex-col gap-4 bg-background px-5 rounded-lg max-w-96 md:max-w-128 pb-2 relative box-border'>
                 <div className='flex items-center'>
                     <img src={data.user.avatar} className='h-14 rounded-full'/>
                     <div className='flex flex-col ml-4'>
-                        <div className='text-xl'>
+                        <div className='text-xl hover:underline cursor-pointer'>
                             {data.user.name}
                         </div>
 
@@ -40,7 +42,7 @@ export default function Post({data}: PostProps) {
                     </div>
                 </Show>
 
-                <div className=''>
+                <div>
                     {data.content}
                 </div>
 
