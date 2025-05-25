@@ -10,5 +10,5 @@ export default interface UserDto {
   created_at: string;
 }
 export function userDtoToEntity(data: UserDto):User {
-  return new User(data.id, data.name, data.email);
+  return new User(data.id, data.name, data.email, data.avatar);
 }
