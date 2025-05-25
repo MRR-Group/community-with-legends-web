@@ -33,13 +33,13 @@ function FeedPage() {
     return (
         <div>
           <NavigationBar active="feed"/>
-            <div className='flex flex-wrap gap-24'>
+            <div className='flex flex-wrap justify-evenly'>
                 <Show when={posts.status === "idle"}>
                     Loading
                 </Show>
                 <Show when={posts.status === "success"}>
                     {columns.map((columnPosts, colIdx) => (
-                        <div key={colIdx} className="flex-1 flex flex-col gap-6">
+                        <div key={colIdx} className="flex flex-col gap-6">
                             {columnPosts.map(post => (
                                 <Post data={post}/>
                             ))}
