@@ -26,7 +26,7 @@ export default function NavigationBar({active}: NavigationBarProps) {
   return (
     <nav className='w-full p-6 flex justify-between items-center'>
       <img src={Logo} alt='Logo' className='object-contain object-center'/>
-      <ul className='flex w-full justify-center md:justify-end ml-auto fixed bottom-0 left-0 md:static bg-background p-2 md:p-0 md:bg-transparent'>
+      <ul className='flex w-full justify-center md:justify-end ml-auto fixed bottom-0 left-0 md:static bg-background p-2 md:p-0 md:bg-transparent z-20'>
         <NavButton
           active={active === "feed"}
           text="Feed"
