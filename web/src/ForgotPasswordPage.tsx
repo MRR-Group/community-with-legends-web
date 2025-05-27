@@ -45,7 +45,7 @@ function ForgotPasswordPage() {
           <AuthRedirectText message={"Did you remember your password?"} actionText={"to login"} link={"/login"}/>
 
           <div className='flex justify-center w-full pb-4 pt-1'>
-            <input className='p-0.5 bg-primary rounded-lg max-w-32 w-full text-xl' type='submit' value='Send code'/>
+            <input className='p-0.5 bg-primary rounded-lg max-w-32 w-full text-xl hover:bg-primary-hover hover:scale-110 active:scale-90 transition-transform' type='submit' value='Send code'/>
           </div>
         </form>
       </div>

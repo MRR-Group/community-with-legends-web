@@ -35,7 +35,7 @@ export default function CreatePost({onSubmit, errors}: CreatePostFormProps) {
                     </div>
 
                     <div className='flex justify-center w-full pb-4 pt-1'>
-                        <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl cursor-pointer' type='submit' value='Submit'/>
+                        <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl cursor-pointer hover:bg-primary-hover hover:scale-110 active:scale-90 transition-transform' type='submit' value='Submit'/>
                     </div>
                 </form>
             </div>

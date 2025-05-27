@@ -24,7 +24,7 @@ function LoginPage() {
   useEffect(() => {
     const message = params.get('message');
 
-    if (message !== undefined) {
+    if (message !== null) {
       toast.error(message);
     }
   }, [params]);
@@ -68,7 +68,7 @@ function LoginPage() {
           <AuthRedirectText message={"You don't remember?"} actionText={"to reset it"} link={"/forgot-password"}/>
 
           <div className='flex justify-center w-full pb-4 pt-1'>
-            <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl cursor-pointer' type='submit' value='Login'/>
+            <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl cursor-pointer hover:bg-primary-hover hover:scale-110 active:scale-90 transition-transform' type='submit' value='Login'/>
           </div>
           <div>
             <h1 className='text-2xl text-center'>OR</h1>

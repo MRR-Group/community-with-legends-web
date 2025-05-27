@@ -51,7 +51,7 @@ export default function NavigationBar({active}: NavigationBarProps) {
           <Show when={!isLogged}>
             <a href="/login">
               <div
-                className='flex items-center border-1 rounded-xl p-1.5 px-4 text-text transition-colors delay-100 hover:text-primary cursor-pointer'>
+                className='flex items-center border-1 rounded-xl p-1.5 px-4 text-text transition-all delay-100 hover:bg-primary hover:scale-105 active:scale-90 cursor-pointer'>
                 Log in
               </div>
             </a>
@@ -60,7 +60,7 @@ export default function NavigationBar({active}: NavigationBarProps) {
           <Show when={isLogged}>
             <div
               onClick={handleLogout}
-              className='flex items-center border-1 rounded-xl p-1.5 px-4 text-text transition-colors delay-100 hover:text-primary cursor-pointer'>
+              className='flex items-center border-1 rounded-xl p-1.5 px-4 text-text transition-all delay-100 hover:bg-primary hover:scale-105 active:scale-90 cursor-pointer'>
               Log out
             </div>
           </Show>

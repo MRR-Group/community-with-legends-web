@@ -78,7 +78,7 @@ export default function Post({data, onPostPreview}: PostProps) {
                 </div>
 
                 <div>
-                    <ReactionButton text={`👍 x ${reactions}`} onClick={handleReactionButtonClick}/>
+                    <ReactionButton text={`👍 x ${reactions}`} onClick={handleReactionButtonClick} hasReacted={clicked}/>
                 </div>
 
                 <div className='absolute -bottom-5 right-7' onClick={onPostPreview}>
