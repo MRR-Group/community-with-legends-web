@@ -13,7 +13,7 @@ export class CreatePostUseCase {
         this._postsRepository = postsRepository;
     }
 
-    public async createPost(content: string, tagIds: number[]|undefined, gameId: number|undefined, assetTypeId: number|undefined, assetLink: string|undefined): Promise<Post> {
+    public async createPost(content: string, tagIds?: number[], gameId?: number, assetTypeId?: number, assetLink?: string): Promise<Post> {
         if (!this._authRepository.isLogged) {
             throw new UnauthenticatedException();
         }

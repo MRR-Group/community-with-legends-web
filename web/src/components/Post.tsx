@@ -45,7 +45,7 @@ export default function Post({data, onPostPreview}: PostProps) {
         <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px] max-w-96 md:max-w-128'>
             <div className='flex flex-col gap-4 bg-background px-5 rounded-lg max-w-96 md:max-w-128 pb-2 relative box-border'>
                 <div className='flex items-center'>
-                    <img src={data.user.avatar} className='h-14 rounded-full' alt='User Avatar'/>
+                    <img src={data.user.avatar} className='h-14 rounded-full bg-text' alt='User Avatar'/>
                     <div className='flex flex-col ml-4'>
                         <div className='text-xl hover:underline cursor-pointer'>
                             {data.user.name}

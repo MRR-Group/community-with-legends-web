@@ -5,8 +5,7 @@ import Show from "./components/Show.tsx";
 import Post from "./components/Post.tsx";
 import PostModel from "../../core/src/entities/post.ts";
 import {useWindowSize} from "react-use";
-import {SubmitHandler} from "react-hook-form";
-import CreatePost, {CreatePostForm} from "./components/CreatePost.tsx";
+import CreatePost, {SubmitProp} from "./components/CreatePost.tsx";
 import useErrorHandler from "./utils/useErrorHandler.ts";
 
 const splitIntoColumns = (posts: PostModel[], columns: number): PostModel[][] => {
@@ -45,10 +44,10 @@ function FeedPage() {
         return splitIntoColumns(posts, Math.max(Math.floor(screen.width/postSize), 1));
     }, [screen, posts]);
 
-    const onCreatePost: SubmitHandler<CreatePostForm> = async(data) => {
+    async function onCreatePost(data: SubmitProp) {
         try {
             clearErrors();
-            const post = await createPostUseCase.createPost(data.content, undefined, undefined, undefined, undefined);
+            const post = await createPostUseCase.createPost(data.content, undefined, data.gameId, undefined, undefined);
             addNewPost(post);
         }
         catch (e: any) {

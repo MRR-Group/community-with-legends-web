@@ -30,13 +30,13 @@ export default class PostsRepository {
         return response.status === 201;
     }
 
-    public async createPost(content: string, tagIds: number[]|undefined, gameId: number|undefined, assetTypeId: number|undefined, assetLink: string|undefined): Promise<Post> {
+    public async createPost(content: string, tagIds?: number[], gameId?: number, assetTypeId?: number, assetLink?: string): Promise<Post> {
         const body = {
             content,
-            tagIds,
-            gameId,
-            assetTypeId,
-            assetLink
+            tag_ids: tagIds,
+            game_id: gameId,
+            asset_type_id: assetTypeId,
+            asset_link: assetLink,
         };
 
         const response = await axios.post(`/api/posts`, body);

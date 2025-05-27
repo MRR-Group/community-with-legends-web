@@ -1,29 +1,43 @@
 import PostModel from "../../../core/src/entities/post.ts";
 import {SubmitHandler, useForm} from "react-hook-form";
 import Input from "./Input.tsx";
+import {SelectFetch} from "react-select-fetch";
+import {useState} from "react";
+import GameDto from "../../../core/src/dto/gameDto.ts";
 
-export type CreatePostForm = {
+export interface CreatePostForm {
     content: string,
 }
 
+export interface SubmitProp {
+    content: string,
+    gameId?: number,
+}
+
 interface CreatePostFormProps {
-    onSubmit: SubmitHandler<CreatePostForm>,
+    onSubmit: (props: SubmitProp) => Promise<void>,
     errors: {[key: string]: string[]},
+}
+
+interface SelectElement {
+    value: number,
+    label: string,
 }
 
 export default function CreatePost({onSubmit, errors}: CreatePostFormProps) {
     const { register, handleSubmit, reset } = useForm<PostModel>();
+    const [selectedGame, setGame] = useState<SelectElement|null>(null);
 
     const handleSubmitClick: SubmitHandler<CreatePostForm> = async(data) => {
-        await onSubmit(data);
+        await onSubmit({content: data.content, gameId: selectedGame?.value});
         reset();
     };
 
     return(
         <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px] max-w-96 md:max-w-128'>
-            <div className='flex flex-col gap-4 bg-background px-5 rounded-lg max-w-96 md:max-w-128 pb-2 relative box-border'>
+            <div className='flex flex-col gap-4 bg-background px-5 rounded-lg max-w-96 md:max-w-128 relative box-border'>
                 <form onSubmit={handleSubmit(handleSubmitClick)} className='flex gap-4 flex-col bg-background px-5 rounded-lg min-w-80'>
-                    <div className=''>
+                    <div className='flex flex-col gap-2'>
                         <Input
                             register={register}
                             errors={errors}
@@ -32,6 +46,31 @@ export default function CreatePost({onSubmit, errors}: CreatePostFormProps) {
                             placeholder='Join the conversation!'
                             name='content'
                         />
+
+                        <SelectFetch
+                            styles={{
+                                control: (styles) => ({...styles, backgroundColor: '#212023', color: '#FFF', border: 'none', boxShadow: 'none'}),
+                                option: (styles) => ({...styles, backgroundColor: '#212023', color: '#FFF'}),
+                                placeholder: (styles) => ({...styles, color: '#B9B9BA'}),
+                                singleValue: (styles) => ({...styles, color: '#FFF'}),
+                                input: (styles) => ({...styles, color: '#FFF'}),
+                            }}
+                            className='text-text bg-background'
+                            url="/api/games/search"
+                            value={selectedGame}
+                            onChange={setGame}
+                            mapResponse={(response: any) => ({
+                                options: response.data.map((game: GameDto) => ({
+                                    value: game.id,
+                                    label: game.name,
+                                })),
+                                hasMore: response.links.next !== null,
+                            })}
+                            queryParams={{
+                                limit: 10
+                            }}
+                        />
+
                     </div>
 
                     <div className='flex justify-center w-full pb-4 pt-1'>
