@@ -10,4 +10,16 @@ export default class PostsRepository {
 
         return posts;
     }
+
+    public async addReaction(postId: number): Promise<boolean> {
+        const response = await axios.post(`/api/posts/${postId}/reactions`);
+
+        return response.status === 200;
+    }
+
+    public async removeReaction(postId: number): Promise<boolean> {
+        const response = await axios.delete(`/api/posts/${postId}/reactions`);
+
+        return response.status === 200;
+    }
 }

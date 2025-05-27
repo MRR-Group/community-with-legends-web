@@ -10,11 +10,10 @@ interface PostProps {
 
 export default function Post({data, onPostPreview}: PostProps) {
     return(
-        <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px] max-w-96 md:max-w-128'
-            onClick={onPostPreview}>
+        <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px] max-w-96 md:max-w-128'>
             <div className='flex flex-col gap-4 bg-background px-5 rounded-lg max-w-96 md:max-w-128 pb-2 relative box-border'>
                 <div className='flex items-center'>
-                    <img src={data.user.avatar} className='h-14 rounded-full'/>
+                    <img src={data.user.avatar} className='h-14 rounded-full' alt='User Avatar'/>
                     <div className='flex flex-col ml-4'>
                         <div className='text-xl hover:underline cursor-pointer'>
                             {data.user.name}
@@ -47,10 +46,10 @@ export default function Post({data, onPostPreview}: PostProps) {
                 </div>
 
                 <div>
-                    <ReactionButton text={`👍 x ${data.reactions}`}/>
+                    <ReactionButton text={`👍 x ${data.reactions}`} hasReacted={data.userReacted} postId={data.id}/>
                 </div>
 
-                <div className='absolute -bottom-5 right-7'>
+                <div className='absolute -bottom-5 right-7' onClick={onPostPreview}>
                     <ReplyButton text={'Reply'}/>
                 </div>
             </div>

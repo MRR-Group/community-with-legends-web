@@ -1,6 +1,7 @@
 interface ReplyButtonProps {
     text: string,
 }
+
 export default function ReplyButton({text}: ReplyButtonProps) {
     return (
         <div className='flex gap-2 p-2 bg-primary rounded-lg text-xl max-w-fit ml-auto items-center cursor-pointer'>
