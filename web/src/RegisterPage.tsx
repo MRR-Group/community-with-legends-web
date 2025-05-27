@@ -22,6 +22,7 @@ function RegisterPage() {
   const onSubmit: SubmitHandler<RegisterForm> = async (data) => {
     try {
       clearErrors();
+      console.log(data);
       await registerUseCase.register(data.name, data.email, data.password, data.confirmPassword)
       navigate("/login")
     }

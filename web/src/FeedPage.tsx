@@ -1,11 +1,13 @@
 import NavigationBar from "./components/NavigationBar.tsx";
 import {useCore} from "./providers/coreProvider.tsx";
 import {useEffect, useMemo, useState} from "react";
-import {useAsync} from "@react-hook/async";
 import Show from "./components/Show.tsx";
 import Post from "./components/Post.tsx";
 import PostModel from "../../core/src/entities/post.ts";
 import {useWindowSize} from "react-use";
+import {SubmitHandler} from "react-hook-form";
+import CreatePost, {CreatePostForm} from "./components/CreatePost.tsx";
+import useErrorHandler from "./utils/useErrorHandler.ts";
 
 const splitIntoColumns = (posts: PostModel[], columns: number): PostModel[][] => {
     const result: PostModel[][] = Array.from({length: columns}, () => []);
@@ -18,51 +20,67 @@ const splitIntoColumns = (posts: PostModel[], columns: number): PostModel[][] =>
 };
 
 function FeedPage() {
-    const {postsRepository} = useCore();
-    const [posts, getPosts] = useAsync(() => postsRepository.all());
-    const [currentPost, setCurrentPost] = useState<PostModel|null>(null);
+    const {postsRepository, createPostUseCase} = useCore();
+    const [posts, setPosts] = useState<PostModel[]>([]);
+    const [currentPost, setCurrentPost] = useState<PostModel>();
     const screen = useWindowSize();
+    const {errors, handleError, clearErrors} = useErrorHandler();
 
     function handleCurrentPost(post: PostModel) {
         setCurrentPost(post);
     }
 
+    async function reloadPosts() {
+        const posts = await postsRepository.all();
+        setPosts(posts);
+    }
+
+    function addNewPost(post: PostModel) {
+        setPosts([post, ...posts]);
+    }
+
     const columns = useMemo(() => {
-        if (posts.status !== "success") {
-            return [];
-        }
         const postSize = 576;
 
-        return splitIntoColumns(posts.value!, Math.max(Math.floor(screen.width/postSize), 1));
+        return splitIntoColumns(posts, Math.max(Math.floor(screen.width/postSize), 1));
     }, [screen, posts]);
 
+    const onCreatePost: SubmitHandler<CreatePostForm> = async(data) => {
+        try {
+            clearErrors();
+            const post = await createPostUseCase.createPost(data.content, undefined, undefined, undefined, undefined);
+            addNewPost(post);
+        }
+        catch (e: any) {
+            handleError(e);
+        }
+    };
+
     useEffect(() => {
-        getPosts();
+        reloadPosts();
     }, []);
 
     return (
         <div>
             <div className={currentPost ? "blur-xs" : ""}>
                <NavigationBar active="feed"/>
+                <div className='mx-auto w-fit'>
+                    <CreatePost onSubmit={onCreatePost} errors={errors}/>
+                </div>
                <div className='flex flex-wrap justify-evenly'>
-                   <Show when={posts.status === "idle"}>
-                       Loading
-                   </Show>
-                   <Show when={posts.status === "success"}>
-                       {columns.map((columnPosts, colIdx) => (
-                           <div key={colIdx} className="flex flex-col gap-8 p-4 md:p-0">
-                               {columnPosts.map(post => (
-                                   <Post data={post} onPostPreview={() => handleCurrentPost(post)}/>
-                               ))}
-                           </div>
-                       ))}
-                   </Show>
+                   {columns.map((columnPosts, colIdx) => (
+                       <div key={colIdx} className="flex flex-col gap-8 p-4 md:p-0">
+                           {columnPosts.map(post => (
+                               <Post data={post} onPostPreview={() => handleCurrentPost(post)} key={post.id}/>
+                           ))}
+                       </div>
+                   ))}
                </div>
             </div>
 
-            <Show when={currentPost !== null}>
+            <Show when={currentPost !== undefined}>
                 <div className='fixed inset-0 bg-background/50 flex justify-center z-50 h-full w-full'
-                onClick={() => setCurrentPost(null)}>
+                onClick={() => setCurrentPost(undefined)}>
                     <div className='mt-4'
                     onClick={(e) => e.stopPropagation()}>
                         <Post data={currentPost!}/>

@@ -39,7 +39,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <CoreProvider>
-      <Toaster position='bottom-left' toastOptions={{className: "toast-message", style: {}, duration: 50000}}></Toaster>
+      <Toaster position='bottom-left' toastOptions={{className: "toast-message", style: {}, duration: 5000}}></Toaster>
       <RouterProvider router={router}/>
     </CoreProvider>
   </StrictMode>,

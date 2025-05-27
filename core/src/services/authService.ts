@@ -7,15 +7,15 @@ export class AuthService {
     public async register(name: string, credential: Credential): Promise<void> {
         await axios.post(`/api/auth/register`, {
             name: name,
-            email: credential.email,
-            password: credential.password
+            email: credential.email.value,
+            password: credential.password.value
         });
     }
 
     public async login(credential: Credential): Promise<number> {
         const response = await axios.post(`/api/auth/login`, {
-            email: credential.email,
-            password: credential.password
+            email: credential.email.value,
+            password: credential.password.value
         });
 
         return response.data.user_id;
