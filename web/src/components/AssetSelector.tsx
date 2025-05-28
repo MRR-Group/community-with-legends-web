@@ -47,7 +47,7 @@ export default function AssetSelector({onChange, asset, errors}: AssetSelectorPr
                     errors={errors}
                     type='text'
                     placeholder='Add link'
-                    name='content'
+                    name='asset_link'
                     onChange={setTypeValue}
                     value={asset?.value}
                 />
