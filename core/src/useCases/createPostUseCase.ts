@@ -13,12 +13,12 @@ export class CreatePostUseCase {
         this._postsRepository = postsRepository;
     }
 
-    public async createPost(content: string, tagIds?: number[], gameId?: number, assetTypeId?: number, assetLink?: string): Promise<Post> {
+    public async createPost(content: string, tagIds?: number[], gameId?: number, assetType?: 'video'|'image', assetLink?: string): Promise<Post> {
         if (!this._authRepository.isLogged) {
             throw new UnauthenticatedException();
         }
 
-        const post = this._postsRepository.createPost(content, tagIds, gameId, assetTypeId, assetLink);
+        const post = this._postsRepository.createPost(content, tagIds, gameId, assetType, assetLink);
 
         if (!post) {
             throw new CannotPostException();

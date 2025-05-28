@@ -27,12 +27,10 @@ body {
 }
 
 *::before {
-    content: '';
     box-sizing: border-box;
 }
 
 *::after {
-    content: '';
     box-sizing: border-box;
 }
 

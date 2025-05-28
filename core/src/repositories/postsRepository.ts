@@ -30,12 +30,12 @@ export default class PostsRepository {
         return response.status === 201;
     }
 
-    public async createPost(content: string, tagIds?: number[], gameId?: number, assetTypeId?: number, assetLink?: string): Promise<Post> {
+    public async createPost(content: string, tagIds?: number[], gameId?: number, assetType?: 'video'|'image', assetLink?: string): Promise<Post> {
         const body = {
             content,
             tag_ids: tagIds,
             game_id: gameId,
-            asset_type_id: assetTypeId,
+            asset_type_id: this.assetTypeToId(assetType),
             asset_link: assetLink,
         };
 
@@ -44,5 +44,20 @@ export default class PostsRepository {
         const post = await this.byId(id);
 
         return post;
+    }
+
+    private assetTypeToId(assetType?: 'video'|'image'): number|undefined {
+        const VIDEO_ASSET_ID = 2;
+        const IMAGE_ASSET_ID = 1;
+
+        if (assetType === 'image') {
+            return IMAGE_ASSET_ID;
+        }
+
+        if (assetType === 'video') {
+            return VIDEO_ASSET_ID;
+        }
+
+        return undefined;
     }
 }

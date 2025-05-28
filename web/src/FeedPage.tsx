@@ -47,7 +47,7 @@ function FeedPage() {
     async function onCreatePost(data: SubmitProp) {
         try {
             clearErrors();
-            const post = await createPostUseCase.createPost(data.content, data.tags, data.gameId, undefined, undefined);
+            const post = await createPostUseCase.createPost(data.content, data.tags, data.gameId, data.asset?.type, data.asset?.value);
             addNewPost(post);
         }
         catch (e: any) {

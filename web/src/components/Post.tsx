@@ -44,8 +44,8 @@ export default function Post({data, onPostPreview}: PostProps) {
 
     return(
         <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px] max-w-96 md:max-w-128'>
-            <div className='flex flex-col gap-4 bg-background px-5 rounded-lg max-w-96 md:max-w-128 pb-2 relative box-border'>
-                <div className='flex items-center'>
+            <div className='flex flex-col gap-4 bg-background px-5 rounded-lg max-w-96 md:max-w-128 pb-4 relative box-border'>
+                <div className='flex pt-4'>
                     <img src={data.user.avatar} className='h-14 rounded-full bg-text' alt='User Avatar'/>
                     <div className='flex flex-col ml-4'>
                         <div className='text-xl hover:underline cursor-pointer'>
@@ -86,7 +86,7 @@ export default function Post({data, onPostPreview}: PostProps) {
                     <ReactionButton text={`👍 x ${reactions}`} onClick={handleReactionButtonClick} hasReacted={clicked}/>
                 </div>
 
-                <div className='absolute -bottom-5 right-7' onClick={onPostPreview}>
+                <div className='absolute -bottom-6 right-7' onClick={onPostPreview}>
                     <ReplyButton text={'Reply'}/>
                 </div>
             </div>

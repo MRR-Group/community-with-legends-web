@@ -32,7 +32,7 @@ function ResetPasswordPage() {
   return (
     <div className='w-full h-full flex justify-center items-center'>
       <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px]'>
-        <form onSubmit={handleSubmit(onSubmit)} className='flex gap-4 flex-col bg-background px-5 rounded-lg min-w-80'>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex gap-4 flex-col bg-background px-5 py-4 rounded-lg min-w-80'>
           <h1 className='text-4xl text-center pb-5 text-wrap max-w-72 leading-tight'>Reset your password</h1>
           <Input
               register={register}

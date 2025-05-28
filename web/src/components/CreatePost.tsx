@@ -5,6 +5,7 @@ import {SelectFetch} from "react-select-fetch";
 import {useState} from "react";
 import GameDto from "../../../core/src/dto/gameDto.ts";
 import TagDto from "../../../core/src/dto/tagDto.ts";
+import AssetSelector, {Asset} from "./AssetSelector.tsx";
 
 export interface CreatePostForm {
     content: string,
@@ -14,6 +15,7 @@ export interface SubmitProp {
     content: string,
     gameId?: number,
     tags: number[],
+    asset?: Asset,
 }
 
 interface CreatePostFormProps {
@@ -30,17 +32,25 @@ export default function CreatePost({onSubmit, errors}: CreatePostFormProps) {
     const { register, handleSubmit, reset } = useForm<PostModel>();
     const [selectedGame, setGame] = useState<SelectElement|null>(null);
     const [selectedTags, setSelectedTags] = useState<readonly SelectElement[]>([]);
+    const [asset, setAsset] = useState<Asset>();
 
     const handleSubmitClick: SubmitHandler<CreatePostForm> = async(data) => {
-        await onSubmit({content: data.content, gameId: selectedGame?.value, tags: selectedTags.map((tag) => tag.value)});
+        await onSubmit({
+            content: data.content,
+            gameId: selectedGame?.value,
+            tags: selectedTags.map((tag) => tag.value),
+            asset
+        });
+
         reset();
         setGame(null);
         setSelectedTags([]);
+        setAsset(undefined);
     };
 
     return(
         <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px] max-w-96 md:max-w-128'>
-            <div className='flex flex-col gap-4 bg-background px-5 rounded-lg max-w-96 md:max-w-128 relative box-border'>
+            <div className='flex flex-col gap-4 bg-background px-4 py-4 rounded-lg max-w-96 md:max-w-128 relative box-border'>
                 <form onSubmit={handleSubmit(handleSubmitClick)} className='flex gap-4 flex-col bg-background px-5 rounded-lg xs:min-w-80'>
                     <div className='flex flex-col gap-2'>
                         <Input
@@ -104,11 +114,11 @@ export default function CreatePost({onSubmit, errors}: CreatePostFormProps) {
                             })}
                         />
 
-                    
+                    <AssetSelector onChange={setAsset} asset={asset} errors={errors}/>
 
                     </div>
 
-                    <div className='flex justify-center w-full pb-4 pt-1'>
+                    <div className='flex justify-center w-full pt-1'>
                         <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl cursor-pointer hover:bg-primary-hover hover:scale-110 active:scale-90 transition-transform' type='submit' value='Submit'/>
                     </div>
                 </form>
