@@ -63,7 +63,7 @@ function FeedPage() {
         <div>
             <div className={currentPost ? "blur-xs" : ""}>
                <NavigationBar active="feed"/>
-                <div className='mx-auto w-fit'>
+                <div className='mx-auto w-fit mb-8'>
                     <CreatePost onSubmit={onCreatePost} errors={errors}/>
                 </div>
                <div className='flex flex-wrap justify-evenly'>

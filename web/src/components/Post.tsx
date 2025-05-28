@@ -74,7 +74,7 @@ export default function Post({data, onPostPreview}: PostProps) {
                     </div>
                 </Show>
 
-                <div>
+                <div className='break-all'>
                     {data.content}
                 </div>
 
