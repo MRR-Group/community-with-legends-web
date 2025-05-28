@@ -4,6 +4,7 @@ import ReactionButton from "./ReactionButton.tsx";
 import ReplyButton from "./ReplyButton.tsx";
 import {useCore} from "../providers/coreProvider.tsx";
 import {useEffect, useState} from "react";
+import AssetViewer from "./AssetViewer.tsx";
 
 interface PostProps {
     data: PostModel,
@@ -75,6 +76,10 @@ export default function Post({data, onPostPreview}: PostProps) {
 
                 <div>
                     {data.content}
+                </div>
+
+                <div>
+                    <AssetViewer asset={data.asset}/>
                 </div>
 
                 <div>

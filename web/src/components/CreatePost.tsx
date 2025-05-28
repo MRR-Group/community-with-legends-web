@@ -104,6 +104,8 @@ export default function CreatePost({onSubmit, errors}: CreatePostFormProps) {
                             })}
                         />
 
+                    
+
                     </div>
 
                     <div className='flex justify-center w-full pb-4 pt-1'>
