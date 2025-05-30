@@ -29,6 +29,16 @@ function FeedPage() {
         setCurrentPost(post);
     }
 
+    function handlePostHide(post: PostModel) {
+        const id = post.id;
+
+        setPosts((posts) => posts.filter((post) => post.id !== id));
+
+        if (currentPost?.id === id) {
+            setCurrentPost(undefined);
+        }
+    }
+
     async function reloadPosts() {
         const posts = await postsRepository.all();
         setPosts(posts);
@@ -70,7 +80,7 @@ function FeedPage() {
                    {columns.map((columnPosts, colIdx) => (
                        <div key={colIdx} className="flex flex-col gap-8 p-4 md:p-0">
                            {columnPosts.map(post => (
-                               <Post data={post} onPostPreview={() => handleCurrentPost(post)} key={post.id}/>
+                               <Post data={post} onPostPreview={() => handleCurrentPost(post)} key={post.id} onHide={handlePostHide}/>
                            ))}
                        </div>
                    ))}
@@ -82,7 +92,7 @@ function FeedPage() {
                 onClick={() => setCurrentPost(undefined)}>
                     <div className='mt-4'
                     onClick={(e) => e.stopPropagation()}>
-                        <Post data={currentPost!}/>
+                        <Post data={currentPost!} onHide={handlePostHide}/>
                     </div>
                 </div>
             </Show>

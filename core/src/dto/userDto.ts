@@ -1,4 +1,4 @@
-import {User} from "../entities/user.ts";
+import {Permission, User} from "../entities/user.ts";
 
 export default interface UserDto {
   id: number;
@@ -6,9 +6,9 @@ export default interface UserDto {
   email: string;
   name: string;
   avatar: string;
-  permissions: string[];
+  permissions: Permission[];
   created_at: string;
 }
 export function userDtoToEntity(data: UserDto):User {
-  return new User(data.id, data.name, data.email, data.avatar);
+  return new User(data.id, data.name, data.email, data.avatar, data.permissions);
 }

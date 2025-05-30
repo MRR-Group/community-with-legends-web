@@ -5,16 +5,21 @@ import ReplyButton from "./ReplyButton.tsx";
 import {useCore} from "../providers/coreProvider.tsx";
 import {useEffect, useState} from "react";
 import AssetViewer from "./AssetViewer.tsx";
+import Options from "./Options.tsx";
+import useErrorHandler from "../utils/useErrorHandler.ts";
+import toast from "react-hot-toast";
 
 interface PostProps {
     data: PostModel,
     onPostPreview?: () => void,
+    onHide: (post: PostModel) => void,
 }
 
-export default function Post({data, onPostPreview}: PostProps) {
-    const { addReactionUseCase, removeReactionUseCase } = useCore();
+export default function Post({data, onPostPreview, onHide}: PostProps) {
+    const { addReactionUseCase, removeReactionUseCase, reportPostUseCase, removePostUseCase, authRepository } = useCore();
     const [reactions, setReactions] = useState(data.reactions);
     const [clicked, setClicked] = useState(data.userReacted);
+    const {handleError} = useErrorHandler();
 
     useEffect(() => {
         setReactions(data.reactions);
@@ -22,15 +27,47 @@ export default function Post({data, onPostPreview}: PostProps) {
     }, [data]);
 
     async function addReaction() {
-        await addReactionUseCase.addReaction(data.id);
-        setReactions(reactions + 1);
-        setClicked(true);
+        try {
+            await addReactionUseCase.addReaction(data.id);
+            setReactions(reactions + 1);
+            setClicked(true);
+        }
+        catch (e: any) {
+            handleError(e);
+        }
     }
 
     async function removeReaction() {
-        await removeReactionUseCase.removeReaction(data.id);
-        setReactions(reactions - 1);
-        setClicked(false);
+        try {
+            await removeReactionUseCase.removeReaction(data.id);
+            setReactions(reactions - 1);
+            setClicked(false);
+        }
+        catch (e: any) {
+            handleError(e);
+        }
+    }
+
+    async function reportPost() {
+        try {
+            await reportPostUseCase.reportPost(data.id);
+            toast('Post has been reported');
+            onHide(data);
+        }
+        catch (e: any) {
+            handleError(e);
+        }
+    }
+
+    async function removePost() {
+        try {
+            await removePostUseCase.removePost(data.id);
+            toast('Post has been deleted');
+            onHide(data);
+        }
+        catch (e: any) {
+            handleError(e);
+        }
     }
 
     async function handleReactionButtonClick() {
@@ -62,6 +99,18 @@ export default function Post({data, onPostPreview}: PostProps) {
                             {data.createdAt.toDateString()}
                         </div>
                     </div>
+                    <Show when={authRepository.User?.id !== data.user.id && authRepository.isLogged}>
+                        <Options>
+                            <div className="hover:text-text-disabled cursor-pointer" onClick={reportPost}>
+                                Report post
+                            </div>
+                            <Show when={authRepository.User?.can('deletePosts')}>
+                                <div className="hover:text-text-disabled cursor-pointer" onClick={removePost}>
+                                    Delete post
+                                </div>
+                            </Show>
+                        </Options>
+                    </Show>
                 </div>
 
                 <Show when={data.tags !== undefined && data.tags.length > 0}>

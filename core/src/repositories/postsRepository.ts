@@ -60,4 +60,15 @@ export default class PostsRepository {
 
         return undefined;
     }
+    public async reportPost(postId: number): Promise<boolean> {
+        const response = await axios.post(`/api/posts/${postId}/report`);
+
+        return response.status === 201;
+    }
+
+    public async removePost(postId: number): Promise<boolean> {
+        const response = await axios.delete(`/api/posts/${postId}`);
+
+        return response.status === 201;
+    }
 }

@@ -12,6 +12,8 @@ import PostsRepository from "../../../core/src/repositories/postsRepository.ts";
 import {AddReactionUseCase} from "../../../core/src/useCases/addReactionUseCase.ts";
 import {RemoveReactionUseCase} from "../../../core/src/useCases/removeReactionUseCase.ts";
 import {CreatePostUseCase} from "../../../core/src/useCases/createPostUseCase.ts";
+import {RemovePostUseCase} from "../../../core/src/useCases/removePostUseCase.ts";
+import {ReportPostUseCase} from "../../../core/src/useCases/reportPostUseCase.ts";
 
 interface CoreContextType {
   authService: AuthService,
@@ -27,6 +29,8 @@ interface CoreContextType {
   addReactionUseCase: AddReactionUseCase,
   removeReactionUseCase: RemoveReactionUseCase,
   createPostUseCase: CreatePostUseCase,
+  reportPostUseCase: ReportPostUseCase,
+  removePostUseCase: RemovePostUseCase,
 }
 
 const authService = new AuthService();
@@ -42,6 +46,8 @@ const sendResetPasswordEmailUseCase = new SendResetPasswordEmailUseCase(authServ
 const addReactionUseCase = new AddReactionUseCase(authRepository, postsRepository);
 const removeReactionUseCase = new RemoveReactionUseCase(authRepository, postsRepository);
 const createPostUseCase = new CreatePostUseCase(authRepository, postsRepository);
+const reportPostUseCase = new ReportPostUseCase(postsRepository);
+const removePostUseCase = new RemovePostUseCase(postsRepository);
 
 const defaultContext:CoreContextType = {
   authService,
@@ -57,6 +63,8 @@ const defaultContext:CoreContextType = {
   addReactionUseCase,
   removeReactionUseCase,
   createPostUseCase,
+  reportPostUseCase,
+  removePostUseCase,
 }
 
 const Context = createContext<CoreContextType>(defaultContext);
