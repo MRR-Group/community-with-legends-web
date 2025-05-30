@@ -11,7 +11,11 @@ export type Permission =
     'anonymizeUsers'|
     'manageAdministrators'|
     'manageModerators'|
-    'updateGames';
+    'updateGames'|
+    'manageReports'|
+    'renameUsers'|
+    'changeUsersAvatar'|
+    'deleteUserHardware';
 
 export class User extends Entity {
     public readonly name: string;
