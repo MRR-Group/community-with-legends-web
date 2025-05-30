@@ -7,6 +7,7 @@ import PostModel from "../../core/src/entities/post.ts";
 import {useWindowSize} from "react-use";
 import CreatePost, {SubmitProp} from "./components/CreatePost.tsx";
 import useErrorHandler from "./utils/useErrorHandler.ts";
+import {useAuth} from "./providers/authProvider.tsx";
 
 const splitIntoColumns = (posts: PostModel[], columns: number): PostModel[][] => {
     const result: PostModel[][] = Array.from({length: columns}, () => []);
@@ -20,6 +21,7 @@ const splitIntoColumns = (posts: PostModel[], columns: number): PostModel[][] =>
 
 function FeedPage() {
     const {postsRepository, createPostUseCase} = useCore();
+    const {isLoggedIn} = useAuth();
     const [posts, setPosts] = useState<PostModel[]>([]);
     const [currentPost, setCurrentPost] = useState<PostModel>();
     const screen = useWindowSize();
@@ -73,9 +75,11 @@ function FeedPage() {
         <div>
             <div className={currentPost ? "blur-xs" : ""}>
                <NavigationBar active="feed"/>
-                <div className='mx-auto w-fit mb-8'>
-                    <CreatePost onSubmit={onCreatePost} errors={errors}/>
-                </div>
+                    <Show when={isLoggedIn}>
+                        <div className='mx-auto w-fit mb-8'>
+                            <CreatePost onSubmit={onCreatePost} errors={errors}/>
+                        </div>
+                    </Show>
                <div className='flex flex-wrap justify-evenly'>
                    {columns.map((columnPosts, colIdx) => (
                        <div key={colIdx} className="flex flex-col gap-8 p-4 md:p-0">

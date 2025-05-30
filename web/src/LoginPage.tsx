@@ -1,12 +1,12 @@
 import {SubmitHandler, useForm} from "react-hook-form";
 import twitchLogo from "./assets/Twitch.svg";
 import AuthRedirectText from "./components/AuthRedirectText.tsx";
-import {useCore} from "./providers/coreProvider.tsx";
 import {useNavigate, useSearchParams} from "react-router";
 import useErrorHandler from "./utils/useErrorHandler.ts";
 import Input from "./components/Input.tsx";
 import {useEffect} from "react";
 import toast from "react-hot-toast";
+import {useAuth} from "./providers/authProvider.tsx";
 
 
 type LoginForm = {
@@ -16,7 +16,7 @@ type LoginForm = {
 
 function LoginPage() {
   const {register, handleSubmit} = useForm<LoginForm>();
-  const {loginUseCase} = useCore();
+  const {logIn} = useAuth();
   const navigate = useNavigate();
   const {errors, handleError, clearErrors} = useErrorHandler();
   const [params] = useSearchParams();
@@ -32,7 +32,7 @@ function LoginPage() {
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     try {
       clearErrors();
-      await loginUseCase.login(data.email, data.password);
+      await logIn(data.email, data.password);
       navigate("/");
     }
     catch (e: any) {

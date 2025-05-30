@@ -8,6 +8,7 @@ import AssetViewer from "./AssetViewer.tsx";
 import Options from "./Options.tsx";
 import useErrorHandler from "../utils/useErrorHandler.ts";
 import toast from "react-hot-toast";
+import {useAuth} from "../providers/authProvider.tsx";
 
 interface PostProps {
     data: PostModel,
@@ -16,7 +17,8 @@ interface PostProps {
 }
 
 export default function Post({data, onPostPreview, onHide}: PostProps) {
-    const { addReactionUseCase, removeReactionUseCase, reportPostUseCase, removePostUseCase, authRepository } = useCore();
+    const { addReactionUseCase, removeReactionUseCase, reportPostUseCase, removePostUseCase, authRepository} = useCore();
+    const {isLoggedIn} = useAuth();
     const [reactions, setReactions] = useState(data.reactions);
     const [clicked, setClicked] = useState(data.userReacted);
     const {handleError} = useErrorHandler();
@@ -99,7 +101,7 @@ export default function Post({data, onPostPreview, onHide}: PostProps) {
                             {data.createdAt.toDateString()}
                         </div>
                     </div>
-                    <Show when={authRepository.User?.id !== data.user.id && authRepository.isLogged}>
+                    <Show when={authRepository.User?.id !== data.user.id && isLoggedIn}>
                         <Options>
                             <div className="hover:text-text-disabled cursor-pointer" onClick={reportPost}>
                                 Report post
