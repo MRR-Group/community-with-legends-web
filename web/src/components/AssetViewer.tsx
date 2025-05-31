@@ -16,7 +16,7 @@ export default function AssetViewer({asset}:AssetViewerProps) {
 
     else if (asset instanceof ImageAsset) {
         return (
-            <img src={asset.link} alt='Post Image'/>
+            <img src={asset.link} alt='Post Image' className='max-h-[620px] md:max-w-[430px] mx-auto'/>
         )
     }
 
