@@ -5,6 +5,7 @@ import {useNavigate} from "react-router";
 import {useCore} from "./providers/coreProvider.tsx";
 import useErrorHandler from "./utils/useErrorHandler.ts";
 import Input from "./components/Input.tsx";
+import Button from "./components/Button.tsx";
 
 type RegisterForm = {
   name: string,
@@ -75,7 +76,7 @@ function RegisterPage() {
           <AuthRedirectText message={"Already have an account?"} actionText={"to login"} link={"/login"}/>
 
           <div className='flex justify-center w-full pb-4 pt-1'>
-            <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl cursor-pointer hover:bg-primary-hover hover:scale-110 active:scale-90 transition-transform' type='submit' value='Register'/>
+            <Button value='Register'/>
           </div>
 
           <div>

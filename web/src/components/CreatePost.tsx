@@ -6,6 +6,7 @@ import {useState} from "react";
 import GameDto from "../../../core/src/dto/gameDto.ts";
 import TagDto from "../../../core/src/dto/tagDto.ts";
 import AssetSelector, {Asset} from "./AssetSelector.tsx";
+import Button from "./Button.tsx";
 
 export interface CreatePostForm {
     content: string,
@@ -119,7 +120,7 @@ export default function CreatePost({onSubmit, errors}: CreatePostFormProps) {
                     </div>
 
                     <div className='flex justify-center w-full pt-1'>
-                        <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl cursor-pointer hover:bg-primary-hover hover:scale-110 active:scale-90 transition-transform' type='submit' value='Submit'/>
+                        <Button value='Submit'/>
                     </div>
                 </form>
             </div>

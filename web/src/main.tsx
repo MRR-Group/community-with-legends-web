@@ -14,6 +14,8 @@ import {
 import {CoreProvider} from "./providers/coreProvider.tsx";
 import { Toaster } from 'react-hot-toast';
 import {AuthProvider} from "./providers/authProvider.tsx";
+import UserPostsPage from "./UserPostsPage.tsx";
+import UserProfilePage from "./UserProfilePage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +42,14 @@ const router = createBrowserRouter([
     path: "/post/:id",
     Component: PostPage,
   },
+  {
+    path: "/user/:id",
+    Component: UserProfilePage,
+  },
+  {
+    path: "/user/:id/posts",
+    Component: UserPostsPage,
+  }
 ]);
 
 createRoot(document.getElementById('root')!).render(

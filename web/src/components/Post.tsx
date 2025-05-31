@@ -91,11 +91,13 @@ export default function Post({data, onHide, isInPreview}: PostProps) {
         <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px] max-w-96 md:max-w-128'>
             <div className='flex flex-col gap-4 bg-background px-5 rounded-lg max-w-96 md:min-w-96 md:max-w-128 pb-4 relative box-border'>
                 <div className='flex pt-4'>
-                    <img src={data.user.avatar} className='h-14 w-14 rounded-full bg-text object-cover' alt='User Avatar'/>
+                    <a href={`/user/${data.user.id}`}>
+                        <img src={data.user.avatar} className='h-14 w-14 rounded-full bg-text object-cover' alt='User Avatar'/>
+                    </a>
                     <div className='flex flex-col ml-4'>
-                        <div className='text-xl hover:underline cursor-pointer'>
+                        <a className='text-xl hover:underline cursor-pointer' href={`/user/${data.user.id}`}>
                             {data.user.name}
-                        </div>
+                        </a>
 
                         <Show when={data.game !== undefined}>
                             <div className='text-primary -mt-2'>

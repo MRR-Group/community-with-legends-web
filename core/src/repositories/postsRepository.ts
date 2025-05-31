@@ -18,6 +18,13 @@ export default class PostsRepository {
         return postDtoToEntity(post);
     }
 
+    public async byUser(userId: number):Promise<Post[]> {
+        const response = await axios.get<Response<PostDto[]>>(`/api/users/${userId}/posts`);
+        const posts = response.data.data.map((post) => postDtoToEntity(post));
+
+        return posts;
+    }
+
     public async addReaction(postId: number): Promise<boolean> {
         const response = await axios.post(`/api/posts/${postId}/reactions`);
 

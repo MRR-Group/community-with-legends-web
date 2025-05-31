@@ -12,6 +12,10 @@ import {useAuth} from "./providers/authProvider.tsx";
 const splitIntoColumns = (posts: PostModel[], columns: number): PostModel[][] => {
     const result: PostModel[][] = Array.from({length: columns}, () => []);
 
+    if (posts.length < columns) {
+        return [posts];
+    }
+
     posts.forEach((post, index) => {
         result[index % columns].push(post);
     });

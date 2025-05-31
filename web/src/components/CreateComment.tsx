@@ -1,6 +1,7 @@
 import PostModel from "../../../core/src/entities/post.ts";
 import {SubmitHandler, useForm} from "react-hook-form";
 import Input from "./Input.tsx";
+import Button from "./Button.tsx";
 
 export interface CreateCommentForm {
     content: string,
@@ -36,7 +37,7 @@ export default function CreateComment({onSubmit, errors}: CreateCommentFormProps
                     </div>
 
                     <div className='flex justify-center w-full pt-1'>
-                        <input className='p-0.5 bg-primary rounded-lg max-w-28 w-full text-xl cursor-pointer hover:bg-primary-hover hover:scale-110 active:scale-90 transition-transform' type='submit' value='Comment'/>
+                        <Button value='Comment'/>
                     </div>
                 </form>
             </div>
