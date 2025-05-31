@@ -6,6 +6,7 @@ import LoginPage from "./LoginPage.tsx";
 import ForgotPasswordPage from "./ForgotPasswordPage.tsx";
 import ResetPasswordPage from "./ResetPasswordPage.tsx";
 import FeedPage from "./FeedPage.tsx";
+import PostPage from "./PostPage.tsx";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     Component: FeedPage,
+  },
+  {
+    path: "/post/:id",
+    Component: PostPage,
   },
 ]);
 

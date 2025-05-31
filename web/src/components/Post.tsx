@@ -9,19 +9,21 @@ import Options from "./Options.tsx";
 import useErrorHandler from "../utils/useErrorHandler.ts";
 import toast from "react-hot-toast";
 import {useAuth} from "../providers/authProvider.tsx";
+import {useNavigate} from "react-router";
 
 interface PostProps {
     data: PostModel,
-    onPostPreview?: () => void,
     onHide: (post: PostModel) => void,
+    isInPreview?: boolean,
 }
 
-export default function Post({data, onPostPreview, onHide}: PostProps) {
+export default function Post({data, onHide, isInPreview}: PostProps) {
     const { addReactionUseCase, removeReactionUseCase, reportPostUseCase, removePostUseCase, authRepository} = useCore();
     const {isLoggedIn} = useAuth();
     const [reactions, setReactions] = useState(data.reactions);
     const [clicked, setClicked] = useState(data.userReacted);
     const {handleError} = useErrorHandler();
+    const navigate = useNavigate();
 
     useEffect(() => {
         setReactions(data.reactions);
@@ -81,11 +83,15 @@ export default function Post({data, onPostPreview, onHide}: PostProps) {
         }
     }
 
+    function handleCommentClick() {
+        navigate(`/post/${data.id}`);
+    }
+
     return(
         <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px] max-w-96 md:max-w-128'>
-            <div className='flex flex-col gap-4 bg-background px-5 rounded-lg max-w-96 md:max-w-128 pb-4 relative box-border'>
+            <div className='flex flex-col gap-4 bg-background px-5 rounded-lg max-w-96 md:min-w-96 md:max-w-128 pb-4 relative box-border'>
                 <div className='flex pt-4'>
-                    <img src={data.user.avatar} className='h-14 rounded-full bg-text' alt='User Avatar'/>
+                    <img src={data.user.avatar} className='h-14 w-14 rounded-full bg-text object-cover' alt='User Avatar'/>
                     <div className='flex flex-col ml-4'>
                         <div className='text-xl hover:underline cursor-pointer'>
                             {data.user.name}
@@ -136,10 +142,11 @@ export default function Post({data, onPostPreview, onHide}: PostProps) {
                 <div>
                     <ReactionButton text={`👍 x ${reactions}`} onClick={handleReactionButtonClick} hasReacted={clicked}/>
                 </div>
-
-                <div className='absolute -bottom-6 right-7' onClick={onPostPreview}>
-                    <ReplyButton text={'Reply'}/>
-                </div>
+                <Show when={!isInPreview}>
+                    <div className='absolute -bottom-6 right-7' onClick={handleCommentClick}>
+                        <ReplyButton text={'Comment'}/>
+                    </div>
+                </Show>
             </div>
         </div>
     )

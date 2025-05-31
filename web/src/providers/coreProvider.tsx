@@ -14,12 +14,17 @@ import {RemoveReactionUseCase} from "../../../core/src/useCases/removeReactionUs
 import {CreatePostUseCase} from "../../../core/src/useCases/createPostUseCase.ts";
 import {RemovePostUseCase} from "../../../core/src/useCases/removePostUseCase.ts";
 import {ReportPostUseCase} from "../../../core/src/useCases/reportPostUseCase.ts";
+import {CreateCommentUseCase} from "../../../core/src/useCases/createCommentUseCase.ts";
+import CommentsRepository from "../../../core/src/repositories/commentsRepository.ts";
+import {ReportCommentUseCase} from "../../../core/src/useCases/reportCommentUseCase.ts";
+import {RemoveCommentUseCase} from "../../../core/src/useCases/removeCommentUseCase.ts";
 
 interface CoreContextType {
   authService: AuthService,
   authRepository: AuthRepository,
   userRepository: UserRepository,
   postsRepository: PostsRepository,
+  commentsRepository: CommentsRepository,
   registerUseCase: RegisterUseCase,
   loginUseCase: LoginUseCase,
   logoutUseCase: LogoutUseCase,
@@ -31,12 +36,16 @@ interface CoreContextType {
   createPostUseCase: CreatePostUseCase,
   reportPostUseCase: ReportPostUseCase,
   removePostUseCase: RemovePostUseCase,
+  createCommentUseCase: CreateCommentUseCase,
+  reportCommentUseCase: ReportCommentUseCase,
+  removeCommentUseCase: RemoveCommentUseCase,
 }
 
 const authService = new AuthService();
 const authRepository = new AuthRepository();
 const userRepository = new UserRepository();
-const postsRepository = new PostsRepository()
+const postsRepository = new PostsRepository();
+const commentsRepository = new CommentsRepository();
 const registerUseCase = new RegisterUseCase(authService);
 const loginUseCase = new LoginUseCase(authService, authRepository, userRepository);
 const logoutUseCase = new LogoutUseCase(authService, authRepository);
@@ -48,12 +57,16 @@ const removeReactionUseCase = new RemoveReactionUseCase(authRepository, postsRep
 const createPostUseCase = new CreatePostUseCase(authRepository, postsRepository);
 const reportPostUseCase = new ReportPostUseCase(postsRepository);
 const removePostUseCase = new RemovePostUseCase(postsRepository);
+const createCommentUseCase = new CreateCommentUseCase(commentsRepository);
+const reportCommentUseCase = new ReportCommentUseCase(commentsRepository);
+const removeCommentUseCase = new RemoveCommentUseCase(commentsRepository);
 
 const defaultContext:CoreContextType = {
   authService,
   authRepository,
   userRepository,
   postsRepository,
+  commentsRepository,
   registerUseCase,
   loginUseCase,
   logoutUseCase,
@@ -65,6 +78,9 @@ const defaultContext:CoreContextType = {
   createPostUseCase,
   reportPostUseCase,
   removePostUseCase,
+  createCommentUseCase,
+  reportCommentUseCase,
+  removeCommentUseCase,
 }
 
 const Context = createContext<CoreContextType>(defaultContext);

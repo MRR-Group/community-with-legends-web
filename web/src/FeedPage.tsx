@@ -23,22 +23,13 @@ function FeedPage() {
     const {postsRepository, createPostUseCase} = useCore();
     const {isLoggedIn} = useAuth();
     const [posts, setPosts] = useState<PostModel[]>([]);
-    const [currentPost, setCurrentPost] = useState<PostModel>();
     const screen = useWindowSize();
     const {errors, handleError, clearErrors} = useErrorHandler();
-
-    function handleCurrentPost(post: PostModel) {
-        setCurrentPost(post);
-    }
 
     function handlePostHide(post: PostModel) {
         const id = post.id;
 
         setPosts((posts) => posts.filter((post) => post.id !== id));
-
-        if (currentPost?.id === id) {
-            setCurrentPost(undefined);
-        }
     }
 
     async function reloadPosts() {
@@ -73,33 +64,21 @@ function FeedPage() {
 
     return (
         <div>
-            <div className={currentPost ? "blur-xs" : ""}>
-               <NavigationBar active="feed"/>
-                    <Show when={isLoggedIn}>
-                        <div className='mx-auto w-fit mb-8'>
-                            <CreatePost onSubmit={onCreatePost} errors={errors}/>
-                        </div>
-                    </Show>
-               <div className='flex flex-wrap justify-evenly'>
-                   {columns.map((columnPosts, colIdx) => (
-                       <div key={colIdx} className="flex flex-col gap-8 p-4 md:p-0">
-                           {columnPosts.map(post => (
-                               <Post data={post} onPostPreview={() => handleCurrentPost(post)} key={post.id} onHide={handlePostHide}/>
-                           ))}
-                       </div>
-                   ))}
-               </div>
-            </div>
-
-            <Show when={currentPost !== undefined}>
-                <div className='fixed inset-0 bg-background/50 flex justify-center z-50 h-full w-full'
-                onClick={() => setCurrentPost(undefined)}>
-                    <div className='mt-4'
-                    onClick={(e) => e.stopPropagation()}>
-                        <Post data={currentPost!} onHide={handlePostHide}/>
+           <NavigationBar active="feed"/>
+                <Show when={isLoggedIn}>
+                    <div className='mx-auto w-fit mb-8'>
+                        <CreatePost onSubmit={onCreatePost} errors={errors}/>
                     </div>
-                </div>
-            </Show>
+                </Show>
+           <div className='flex flex-wrap justify-evenly'>
+               {columns.map((columnPosts, colIdx) => (
+                   <div key={colIdx} className="flex flex-col gap-8 p-4 md:p-0 md:pb-4 pb-16">
+                       {columnPosts.map(post => (
+                           <Post data={post} key={post.id} onHide={handlePostHide}/>
+                       ))}
+                   </div>
+               ))}
+           </div>
         </div>
     )
 }
