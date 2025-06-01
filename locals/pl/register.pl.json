@@ -1,0 +1,17 @@
+{
+  "RegisterTitle": "Rejestracja",
+  "Enter your name": "Wprowadź swoją nazwę",
+  "name": "nazwa",
+  "Enter your email": "Wprowadź swój email",
+  "email": "email",
+  "Enter your password": "Wprowadź swoje hasło",
+  "password": "hasło",
+  "Confirm your password": "Potwierdź swoje hasło",
+  "repeat password": "powtórz hasło",
+  "Already have an account?": "Masz już konto?",
+  "Click here": "Kliknij tutaj",
+  "to login": "aby się zalogować",
+  "RegisterButton": "Zarejestruj się",
+  "OR": "LUB",
+  "Register via": "Zarejestruj się przez"
+}

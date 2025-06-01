@@ -1,6 +1,7 @@
 import ToggleButton from "./ToggleButton.tsx";
 import Show from "./Show.tsx";
 import Input from "./Input.tsx";
+import {useTranslation} from "react-i18next";
 
 interface AssetSelectorProps {
     asset?: Asset,
@@ -14,6 +15,8 @@ export interface Asset {
 }
 
 export default function AssetSelector({onChange, asset, errors}: AssetSelectorProps) {
+    const {t} = useTranslation('feedPage');
+
     function setSelectedType(type: undefined|'video'|'image') {
         if (type === undefined) {
             onChange(undefined);
@@ -33,20 +36,20 @@ export default function AssetSelector({onChange, asset, errors}: AssetSelectorPr
         <div>
             <div className='flex justify-between'>
                 <ToggleButton isClicked={asset?.type === 'image'} onClick={() => setSelectedType('image')}>
-                    Image
+                    {t('Image')}
                 </ToggleButton>
                 <ToggleButton isClicked={asset?.type === 'video'} onClick={() => setSelectedType('video')}>
-                    Video
+                    {t('Video')}
                 </ToggleButton>
                 <ToggleButton isClicked={asset?.type === undefined} onClick={() => setSelectedType(undefined)}>
-                    None
+                    {t('None')}
                 </ToggleButton>
             </div>
             <Show when={asset?.type !== undefined}>
                 <Input
                     errors={errors}
                     type='text'
-                    placeholder='Add link'
+                    placeholder={t('Add link')}
                     name='asset_link'
                     onChange={setTypeValue}
                     value={asset?.value}

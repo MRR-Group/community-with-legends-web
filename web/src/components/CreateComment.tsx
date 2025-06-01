@@ -2,6 +2,7 @@ import PostModel from "../../../core/src/entities/post.ts";
 import {SubmitHandler, useForm} from "react-hook-form";
 import Input from "./Input.tsx";
 import Button from "./Button.tsx";
+import {useTranslation} from "react-i18next";
 
 export interface CreateCommentForm {
     content: string,
@@ -14,6 +15,7 @@ interface CreateCommentFormProps {
 
 export default function CreateComment({onSubmit, errors}: CreateCommentFormProps) {
     const { register, handleSubmit, reset } = useForm<PostModel>();
+    const {t} = useTranslation('postPage');
 
     const handleSubmitClick: SubmitHandler<CreateCommentForm> = async(data) => {
         await onSubmit(data.content);
@@ -29,15 +31,15 @@ export default function CreateComment({onSubmit, errors}: CreateCommentFormProps
                         <Input
                             register={register}
                             errors={errors}
-                            title='Create a comment'
+                            title={t('Create a comment')}
                             type='text'
-                            placeholder='Join the conversation!'
+                            placeholder={t('Join the conversation!')}
                             name='content'
                         />
                     </div>
 
                     <div className='flex justify-center w-full pt-1'>
-                        <Button value='Comment'/>
+                        <Button value={t('Comment')}/>
                     </div>
                 </form>
             </div>

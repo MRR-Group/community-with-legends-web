@@ -16,6 +16,9 @@ import { Toaster } from 'react-hot-toast';
 import {AuthProvider} from "./providers/authProvider.tsx";
 import UserPostsPage from "./UserPostsPage.tsx";
 import UserProfilePage from "./UserProfilePage.tsx";
+import {InitTranslation} from "./translations.ts";
+
+InitTranslation();
 
 const router = createBrowserRouter([
   {

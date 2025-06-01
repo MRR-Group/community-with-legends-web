@@ -10,6 +10,7 @@ import useErrorHandler from "../utils/useErrorHandler.ts";
 import toast from "react-hot-toast";
 import {useAuth} from "../providers/authProvider.tsx";
 import {useNavigate} from "react-router";
+import {useTranslation} from "react-i18next";
 
 interface PostProps {
     data: PostModel,
@@ -24,6 +25,7 @@ export default function Post({data, onHide, isInPreview}: PostProps) {
     const [clicked, setClicked] = useState(data.userReacted);
     const {handleError} = useErrorHandler();
     const navigate = useNavigate();
+    const {t} = useTranslation('feedPage');
 
     useEffect(() => {
         setReactions(data.reactions);
@@ -112,11 +114,11 @@ export default function Post({data, onHide, isInPreview}: PostProps) {
                     <Show when={authRepository.User?.id !== data.user.id && isLoggedIn}>
                         <Options>
                             <div className="hover:text-text-disabled cursor-pointer" onClick={reportPost}>
-                                Report post
+                                {t('Report post')}
                             </div>
                             <Show when={authRepository.User?.can('deletePosts')}>
                                 <div className="hover:text-text-disabled cursor-pointer" onClick={removePost}>
-                                    Delete post
+                                    {t('Delete post')}
                                 </div>
                             </Show>
                         </Options>
@@ -146,7 +148,7 @@ export default function Post({data, onHide, isInPreview}: PostProps) {
                 </div>
                 <Show when={!isInPreview}>
                     <div className='absolute -bottom-6 right-7' onClick={handleCommentClick}>
-                        <ReplyButton text={'Comment'}/>
+                        <ReplyButton text={t('Comment')}/>
                     </div>
                 </Show>
             </div>

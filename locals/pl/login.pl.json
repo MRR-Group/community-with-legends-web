@@ -1,0 +1,17 @@
+{
+  "LoginTitle": "Logowanie",
+  "Enter your email": "Wprowadź swój email",
+  "email": "email",
+  "You don't have an account?": "Nie masz konta?",
+  "Click here": "Kliknij tutaj",
+  "to register": "aby się zarejestrować",
+  "Enter your password": "Wprowadź swoje hasło",
+  "password": "hasło",
+  "You don't remember?": "Nie pamiętasz?",
+  "to reset it": "aby je zresetować",
+  "LoginButton": "Zaloguj się",
+  "OR": "LUB",
+  "Log in via": "Zaloguj się przez",
+  "View as a": "Przeglądaj jako",
+  "guest": "gość"
+}

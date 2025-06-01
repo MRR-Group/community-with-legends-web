@@ -5,6 +5,7 @@ import Options from "./Options.tsx";
 import useErrorHandler from "../utils/useErrorHandler.ts";
 import toast from "react-hot-toast";
 import {useAuth} from "../providers/authProvider.tsx";
+import {useTranslation} from "react-i18next";
 
 interface CommentProps {
     data: CommentModel,
@@ -15,6 +16,7 @@ export default function Comment({data, onHide}: CommentProps) {
     const { reportCommentUseCase, removeCommentUseCase, authRepository } = useCore();
     const {isLoggedIn} = useAuth();
     const {handleError} = useErrorHandler();
+    const {t} = useTranslation('postPage');
 
     async function reportComment() {
         try {
@@ -54,11 +56,11 @@ export default function Comment({data, onHide}: CommentProps) {
                     <Show when={authRepository.User?.id !== data.user.id && isLoggedIn}>
                         <Options>
                             <div className="hover:text-text-disabled cursor-pointer" onClick={reportComment}>
-                                Report comment
+                                {t('Report comment')}
                             </div>
                             <Show when={authRepository.User?.can('deletePosts')}>
                                 <div className="hover:text-text-disabled cursor-pointer" onClick={removeComment}>
-                                    Delete comment
+                                    {t('Delete comment')}
                                 </div>
                             </Show>
                         </Options>

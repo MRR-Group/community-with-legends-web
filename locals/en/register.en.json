@@ -1,0 +1,17 @@
+{
+  "RegisterTitle": "Register",
+  "Enter your name": "Enter your name",
+  "name": "name",
+  "Enter your email": "Enter your email",
+  "email": "email",
+  "Enter your password": "Enter your password",
+  "password": "password",
+  "Confirm your password": "Confirm your password",
+  "repeat password": "repeat password",
+  "Already have an account?": "Already have an account?",
+  "Click here": "Click here",
+  "to login": "to login",
+  "RegisterButton": "Register",
+  "OR": "OR",
+  "Register via": "Register via"
+}

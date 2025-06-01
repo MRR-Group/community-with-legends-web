@@ -7,6 +7,7 @@ import GameDto from "../../../core/src/dto/gameDto.ts";
 import TagDto from "../../../core/src/dto/tagDto.ts";
 import AssetSelector, {Asset} from "./AssetSelector.tsx";
 import Button from "./Button.tsx";
+import {useTranslation} from "react-i18next";
 
 export interface CreatePostForm {
     content: string,
@@ -34,6 +35,7 @@ export default function CreatePost({onSubmit, errors}: CreatePostFormProps) {
     const [selectedGame, setGame] = useState<SelectElement|null>(null);
     const [selectedTags, setSelectedTags] = useState<readonly SelectElement[]>([]);
     const [asset, setAsset] = useState<Asset>();
+    const {t} = useTranslation('feedPage');
 
     const handleSubmitClick: SubmitHandler<CreatePostForm> = async(data) => {
         await onSubmit({
@@ -57,9 +59,9 @@ export default function CreatePost({onSubmit, errors}: CreatePostFormProps) {
                         <Input
                             register={register}
                             errors={errors}
-                            title='Create a post'
+                            title={t('Create a post')}
                             type='text'
-                            placeholder='Join the conversation!'
+                            placeholder={t('Join the conversation!')}
                             name='content'
                         />
 
@@ -73,7 +75,7 @@ export default function CreatePost({onSubmit, errors}: CreatePostFormProps) {
                                 loadingMessage: (styles) => ({...styles, backgroundColor: '#212023', color: '#FFF'}),
                             }}
                             className='text-text bg-background'
-                            placeholder='Select game'
+                            placeholder={t('Select game')}
                             url="/api/games/search"
                             value={selectedGame}
                             onChange={setGame}
@@ -102,7 +104,7 @@ export default function CreatePost({onSubmit, errors}: CreatePostFormProps) {
                             }}
                             isMulti={true}
                             className='text-text bg-background'
-                            placeholder='Select tags'
+                            placeholder={t('Select tags')}
                             url="/api/tags/search"
                             value={selectedTags}
                             onChange={setSelectedTags}
@@ -120,7 +122,7 @@ export default function CreatePost({onSubmit, errors}: CreatePostFormProps) {
                     </div>
 
                     <div className='flex justify-center w-full pt-1'>
-                        <Button value='Submit'/>
+                        <Button value={t('Submit')}/>
                     </div>
                 </form>
             </div>
