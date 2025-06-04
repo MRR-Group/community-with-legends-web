@@ -9,4 +9,12 @@ export default class UserRepository {
 
     return userDtoToEntity(response.data.data);
   }
+
+  public async reportUser(id: number): Promise<void> {
+    return await axios.post(`/api/users/${id}/report`);
+  }
+
+  public async banUser(id: number): Promise<void> {
+    return await axios.post(`/api/users/${id}/ban?by_ip=false`);
+  }
 }

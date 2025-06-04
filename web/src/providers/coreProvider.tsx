@@ -18,6 +18,8 @@ import {CreateCommentUseCase} from "../../../core/src/useCases/createCommentUseC
 import CommentsRepository from "../../../core/src/repositories/commentsRepository.ts";
 import {ReportCommentUseCase} from "../../../core/src/useCases/reportCommentUseCase.ts";
 import {RemoveCommentUseCase} from "../../../core/src/useCases/removeCommentUseCase.ts";
+import {ReportUserUseCase} from "../../../core/src/useCases/reportUserUseCase.ts";
+import {BanUserUseCase} from "../../../core/src/useCases/banUserUseCase.ts";
 
 interface CoreContextType {
   authService: AuthService,
@@ -39,6 +41,8 @@ interface CoreContextType {
   createCommentUseCase: CreateCommentUseCase,
   reportCommentUseCase: ReportCommentUseCase,
   removeCommentUseCase: RemoveCommentUseCase,
+  reportUserUseCase: ReportUserUseCase,
+  banUserUseCase: BanUserUseCase,
 }
 
 const authService = new AuthService();
@@ -60,6 +64,8 @@ const removePostUseCase = new RemovePostUseCase(postsRepository);
 const createCommentUseCase = new CreateCommentUseCase(commentsRepository);
 const reportCommentUseCase = new ReportCommentUseCase(commentsRepository);
 const removeCommentUseCase = new RemoveCommentUseCase(commentsRepository);
+const reportUserUseCase = new ReportUserUseCase(userRepository);
+const banUserUseCase = new BanUserUseCase(userRepository);
 
 const defaultContext:CoreContextType = {
   authService,
@@ -81,6 +87,8 @@ const defaultContext:CoreContextType = {
   createCommentUseCase,
   reportCommentUseCase,
   removeCommentUseCase,
+  reportUserUseCase,
+  banUserUseCase,
 }
 
 const Context = createContext<CoreContextType>(defaultContext);
