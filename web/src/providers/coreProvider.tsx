@@ -20,6 +20,10 @@ import {ReportCommentUseCase} from "../../../core/src/useCases/reportCommentUseC
 import {RemoveCommentUseCase} from "../../../core/src/useCases/removeCommentUseCase.ts";
 import {ReportUserUseCase} from "../../../core/src/useCases/reportUserUseCase.ts";
 import {BanUserUseCase} from "../../../core/src/useCases/banUserUseCase.ts";
+import {ChangeAvatarUseCase} from "../../../core/src/useCases/changeAvatarUseCase.ts";
+import EditProfileRepository from "../../../core/src/repositories/editProfileRepository.ts";
+import {DeleteAvatarUseCase} from "../../../core/src/useCases/deleteAvatarUseCase.ts";
+import {ChangeNameUseCase} from "../../../core/src/useCases/changeNameUseCase.ts";
 
 interface CoreContextType {
   authService: AuthService,
@@ -27,6 +31,7 @@ interface CoreContextType {
   userRepository: UserRepository,
   postsRepository: PostsRepository,
   commentsRepository: CommentsRepository,
+  editProfileRepository: EditProfileRepository,
   registerUseCase: RegisterUseCase,
   loginUseCase: LoginUseCase,
   logoutUseCase: LogoutUseCase,
@@ -43,6 +48,9 @@ interface CoreContextType {
   removeCommentUseCase: RemoveCommentUseCase,
   reportUserUseCase: ReportUserUseCase,
   banUserUseCase: BanUserUseCase,
+  changeAvatarUseCase: ChangeAvatarUseCase,
+  deleteAvatarUseCase: DeleteAvatarUseCase,
+  changeNameUseCase: ChangeNameUseCase,
 }
 
 const authService = new AuthService();
@@ -50,6 +58,7 @@ const authRepository = new AuthRepository();
 const userRepository = new UserRepository();
 const postsRepository = new PostsRepository();
 const commentsRepository = new CommentsRepository();
+const editProfileRepository = new EditProfileRepository();
 const registerUseCase = new RegisterUseCase(authService);
 const loginUseCase = new LoginUseCase(authService, authRepository, userRepository);
 const logoutUseCase = new LogoutUseCase(authService, authRepository);
@@ -66,6 +75,9 @@ const reportCommentUseCase = new ReportCommentUseCase(commentsRepository);
 const removeCommentUseCase = new RemoveCommentUseCase(commentsRepository);
 const reportUserUseCase = new ReportUserUseCase(userRepository);
 const banUserUseCase = new BanUserUseCase(userRepository);
+const changeAvatarUseCase = new ChangeAvatarUseCase(editProfileRepository)
+const deleteAvatarUseCase = new DeleteAvatarUseCase(editProfileRepository);
+const changeNameUseCase = new ChangeNameUseCase(editProfileRepository);
 
 const defaultContext:CoreContextType = {
   authService,
@@ -73,6 +85,7 @@ const defaultContext:CoreContextType = {
   userRepository,
   postsRepository,
   commentsRepository,
+  editProfileRepository,
   registerUseCase,
   loginUseCase,
   logoutUseCase,
@@ -89,6 +102,9 @@ const defaultContext:CoreContextType = {
   removeCommentUseCase,
   reportUserUseCase,
   banUserUseCase,
+  changeAvatarUseCase,
+  deleteAvatarUseCase,
+  changeNameUseCase,
 }
 
 const Context = createContext<CoreContextType>(defaultContext);

@@ -69,7 +69,7 @@ export default function UserProfile({user, onEdit}: UserProfileProps) {
           </Show>
         </div>
         <img
-          src={user.avatar}
+          src={`${user.avatar}?${Date.now()}`}
           className='h-28 w-28 rounded-full bg-text object-cover'
           alt='User Avatar'
         />

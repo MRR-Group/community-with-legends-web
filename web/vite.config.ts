@@ -11,7 +11,7 @@ export default defineConfig(config => {
       tailwindcss(),
     ],
     server: {
-      allowedHosts: [env.VITE_DOMAIN]
+      allowedHosts: env.VITE_DOMAINS.split(', ')
     },
     test: {
       environment: 'jsdom',

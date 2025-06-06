@@ -32,6 +32,10 @@ function UserProfilePage() {
     }
   }
 
+  async function refreshUser() {
+    setUser(await userRepository.byId(Number(id)));
+  }
+
   useEffect(() => {
     showUser()
   }, [id]);
@@ -49,7 +53,7 @@ function UserProfilePage() {
           <UserProfile user={user!} onEdit={() => setInEditMode(true)}/>
         </Show>
         <Show when={inEditMode}>
-          <EditProfile username={user!.name} avatar={user!.avatar} onHide={() => setInEditMode(false)}/>
+          <EditProfile data={user!} onHide={() => setInEditMode(false)} onChange={refreshUser}/>
         </Show>
       </div>
 
