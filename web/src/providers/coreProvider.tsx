@@ -24,6 +24,10 @@ import {ChangeAvatarUseCase} from "../../../core/src/useCases/changeAvatarUseCas
 import EditProfileRepository from "../../../core/src/repositories/editProfileRepository.ts";
 import {DeleteAvatarUseCase} from "../../../core/src/useCases/deleteAvatarUseCase.ts";
 import {ChangeNameUseCase} from "../../../core/src/useCases/changeNameUseCase.ts";
+import HardwareRepository from "../../../core/src/repositories/hardwareRepository.ts";
+import {AddHardwareUseCase} from "../../../core/src/useCases/addHardwareUseCase.ts";
+import {EditHardwareUseCase} from "../../../core/src/useCases/editHardwareUseCase.ts";
+import {RemoveHardwareUseCase} from "../../../core/src/useCases/removeHardwareUseCase.ts";
 
 interface CoreContextType {
   authService: AuthService,
@@ -31,6 +35,7 @@ interface CoreContextType {
   userRepository: UserRepository,
   postsRepository: PostsRepository,
   commentsRepository: CommentsRepository,
+  hardwareRepository: HardwareRepository,
   editProfileRepository: EditProfileRepository,
   registerUseCase: RegisterUseCase,
   loginUseCase: LoginUseCase,
@@ -51,6 +56,9 @@ interface CoreContextType {
   changeAvatarUseCase: ChangeAvatarUseCase,
   deleteAvatarUseCase: DeleteAvatarUseCase,
   changeNameUseCase: ChangeNameUseCase,
+  addHardwareUseCase: AddHardwareUseCase,
+  editHardwareUseCase: EditHardwareUseCase,
+  removeHardwareUseCase: RemoveHardwareUseCase,
 }
 
 const authService = new AuthService();
@@ -58,6 +66,7 @@ const authRepository = new AuthRepository();
 const userRepository = new UserRepository();
 const postsRepository = new PostsRepository();
 const commentsRepository = new CommentsRepository();
+const hardwareRepository = new HardwareRepository();
 const editProfileRepository = new EditProfileRepository();
 const registerUseCase = new RegisterUseCase(authService);
 const loginUseCase = new LoginUseCase(authService, authRepository, userRepository);
@@ -78,6 +87,9 @@ const banUserUseCase = new BanUserUseCase(userRepository);
 const changeAvatarUseCase = new ChangeAvatarUseCase(editProfileRepository)
 const deleteAvatarUseCase = new DeleteAvatarUseCase(editProfileRepository);
 const changeNameUseCase = new ChangeNameUseCase(editProfileRepository);
+const addHardwareUseCase = new AddHardwareUseCase(hardwareRepository);
+const editHardwareUseCase = new EditHardwareUseCase(hardwareRepository);
+const removeHardwareUseCase = new RemoveHardwareUseCase(hardwareRepository);
 
 const defaultContext:CoreContextType = {
   authService,
@@ -85,6 +97,7 @@ const defaultContext:CoreContextType = {
   userRepository,
   postsRepository,
   commentsRepository,
+  hardwareRepository,
   editProfileRepository,
   registerUseCase,
   loginUseCase,
@@ -105,6 +118,9 @@ const defaultContext:CoreContextType = {
   changeAvatarUseCase,
   deleteAvatarUseCase,
   changeNameUseCase,
+  addHardwareUseCase,
+  editHardwareUseCase,
+  removeHardwareUseCase,
 }
 
 const Context = createContext<CoreContextType>(defaultContext);

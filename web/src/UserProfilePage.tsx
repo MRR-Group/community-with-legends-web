@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 import Loading from "./components/Loading.tsx";
 import Show from "./components/Show.tsx";
 import EditProfile from "./components/EditProfile.tsx";
+import UserHardware from "./components/UserHardware.tsx";
 
 function UserProfilePage() {
   const {userRepository} = useCore();
@@ -48,7 +49,7 @@ function UserProfilePage() {
     <div>
       <NavigationBar active='profile'/>
       
-      <div className='p-4 md:p-0'>
+      <div className='p-4 md:px-0'>
         <Show when={!inEditMode}>
           <UserProfile user={user!} onEdit={() => setInEditMode(true)}/>
         </Show>
@@ -57,13 +58,15 @@ function UserProfilePage() {
         </Show>
       </div>
 
-      <div className='flex justify-center pt-3'>
+      <div className='flex justify-center'>
         <a href={`/user/${id}/posts`}>
           <Button value='See Posts'/>
         </a>
       </div>
 
-
+      <div className='pt-4 p-4 md:px-0'>
+        <UserHardware user={user!}/>
+      </div>
     </div>
   )
 }
