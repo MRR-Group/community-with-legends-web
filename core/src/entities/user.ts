@@ -15,7 +15,8 @@ export type Permission =
     'manageReports'|
     'renameUsers'|
     'changeUsersAvatar'|
-    'deleteUserHardware';
+    'deleteUserHardware'|
+    'viewLogs';
 
 export class User extends Entity {
     public readonly name: string;

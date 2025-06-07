@@ -20,7 +20,7 @@ export default function UserProfile({user, onEdit}: UserProfileProps) {
 
   async function reportUser() {
     try {
-      await reportUserUseCase.reportUser(authRepository.User!.id);
+      await reportUserUseCase.reportUser(user.id);
       toast('User has been reported');
       handleUserHide();
     }
@@ -31,7 +31,7 @@ export default function UserProfile({user, onEdit}: UserProfileProps) {
 
   async function banUser() {
     try {
-      await banUserUseCase.banUser(authRepository.User!.id);
+      await banUserUseCase.banUser(user.id);
       toast('User has been banned');
       handleUserHide();
     }
