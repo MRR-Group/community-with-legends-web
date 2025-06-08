@@ -10,10 +10,13 @@ import Loading from "./components/Loading.tsx";
 import Show from "./components/Show.tsx";
 import EditProfile from "./components/EditProfile.tsx";
 import UserHardware from "./components/UserHardware.tsx";
+import GamesList from "./components/GamesList.tsx";
+import GameOnList from "../../core/src/entities/gameOnList.ts";
 
 function UserProfilePage() {
-  const {userRepository} = useCore();
+  const {userRepository, gameOnListRepository, authRepository} = useCore();
   const [user, setUser] = useState<User>();
+  const [userGames, setUserGames] = useState<GameOnList[]>([]);
   const [loading, setLoading] = useState(true);
   const {id} = useParams();
   const {handleError, clearErrors} = useErrorHandler();
@@ -33,12 +36,18 @@ function UserProfilePage() {
     }
   }
 
+  async function getUserGames() {
+    const games = await gameOnListRepository.byUser(Number(id));
+    setUserGames(games);
+  }
+
   async function refreshUser() {
     setUser(await userRepository.byId(Number(id)));
   }
 
   useEffect(() => {
-    showUser()
+    showUser();
+    getUserGames();
   }, [id]);
 
   if (loading) {
@@ -66,6 +75,12 @@ function UserProfilePage() {
 
       <div className='pt-4 p-4 md:px-0'>
         <UserHardware user={user!}/>
+      </div>
+
+      <div className='flex flex-col 2.5xl:flex-row gap-6 pt-4 p-4 md:px-0 md:pb-4 pb-16'>
+        <GamesList listName='Want to play' listType='to_play' games={userGames} canEdit={authRepository.User?.id === user!.id}/>
+        <GamesList listName='Playing' listType='playing' games={userGames} canEdit={authRepository.User?.id === user!.id}/>
+        <GamesList listName='Played' listType='played' games={userGames} canEdit={authRepository.User?.id === user!.id}/>
       </div>
     </div>
   )

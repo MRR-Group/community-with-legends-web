@@ -28,6 +28,9 @@ import HardwareRepository from "../../../core/src/repositories/hardwareRepositor
 import {AddHardwareUseCase} from "../../../core/src/useCases/addHardwareUseCase.ts";
 import {EditHardwareUseCase} from "../../../core/src/useCases/editHardwareUseCase.ts";
 import {RemoveHardwareUseCase} from "../../../core/src/useCases/removeHardwareUseCase.ts";
+import GameOnListRepository from "../../../core/src/repositories/gameOnListRepository.ts";
+import {AddGameToListUseCase} from "../../../core/src/useCases/addGameToListUseCase.ts";
+import {RemoveGameFromListUseCase} from "../../../core/src/useCases/removeGameFromListUseCase.ts";
 
 interface CoreContextType {
   authService: AuthService,
@@ -37,6 +40,7 @@ interface CoreContextType {
   commentsRepository: CommentsRepository,
   hardwareRepository: HardwareRepository,
   editProfileRepository: EditProfileRepository,
+  gameOnListRepository: GameOnListRepository,
   registerUseCase: RegisterUseCase,
   loginUseCase: LoginUseCase,
   logoutUseCase: LogoutUseCase,
@@ -59,6 +63,8 @@ interface CoreContextType {
   addHardwareUseCase: AddHardwareUseCase,
   editHardwareUseCase: EditHardwareUseCase,
   removeHardwareUseCase: RemoveHardwareUseCase,
+  addGameToListUseCase: AddGameToListUseCase,
+  removeGameFromListUseCase: RemoveGameFromListUseCase,
 }
 
 const authService = new AuthService();
@@ -68,6 +74,7 @@ const postsRepository = new PostsRepository();
 const commentsRepository = new CommentsRepository();
 const hardwareRepository = new HardwareRepository();
 const editProfileRepository = new EditProfileRepository();
+const gameOnListRepository = new GameOnListRepository();
 const registerUseCase = new RegisterUseCase(authService);
 const loginUseCase = new LoginUseCase(authService, authRepository, userRepository);
 const logoutUseCase = new LogoutUseCase(authService, authRepository);
@@ -90,6 +97,8 @@ const changeNameUseCase = new ChangeNameUseCase(editProfileRepository);
 const addHardwareUseCase = new AddHardwareUseCase(hardwareRepository);
 const editHardwareUseCase = new EditHardwareUseCase(hardwareRepository);
 const removeHardwareUseCase = new RemoveHardwareUseCase(hardwareRepository);
+const addGameToListUseCase = new AddGameToListUseCase(gameOnListRepository);
+const removeGameFromListUseCase = new RemoveGameFromListUseCase(gameOnListRepository);
 
 const defaultContext:CoreContextType = {
   authService,
@@ -99,6 +108,7 @@ const defaultContext:CoreContextType = {
   commentsRepository,
   hardwareRepository,
   editProfileRepository,
+  gameOnListRepository,
   registerUseCase,
   loginUseCase,
   logoutUseCase,
@@ -121,6 +131,8 @@ const defaultContext:CoreContextType = {
   addHardwareUseCase,
   editHardwareUseCase,
   removeHardwareUseCase,
+  addGameToListUseCase,
+  removeGameFromListUseCase,
 }
 
 const Context = createContext<CoreContextType>(defaultContext);
