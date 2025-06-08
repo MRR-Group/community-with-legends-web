@@ -8,7 +8,7 @@ export class AddGameToListUseCase {
     this._gameOnListRepository = gameOnListRepository;
   }
 
-  public async addGameToList(game_id: number, status: 'to_play'|'playing'|'played'): Promise<GameOnList> {
+  public async addGameToList(game_id?: number, status?: 'to_play'|'playing'|'played'): Promise<GameOnList> {
     return this._gameOnListRepository.addGameToList(game_id, status);
   }
 }

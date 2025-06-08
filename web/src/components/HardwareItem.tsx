@@ -39,7 +39,7 @@ export default function HardwareItem({id, title, value, onEdit, errors, onDelete
   }
 
   return (
-    <div className='w-full max-w-72'>
+    <div className='w-full px-4'>
       <div className='flex justify-between text-sm w-full'>
         {title}
       <div className='flex gap-1.5'>

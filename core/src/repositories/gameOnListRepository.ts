@@ -18,7 +18,7 @@ export default class GameOnListRepository {
     return listsOfGames;
   }
 
-  public async addGameToList(game_id: number, status: 'to_play'|'playing'|'played'): Promise<GameOnList> {
+  public async addGameToList(game_id?: number, status?: 'to_play'|'playing'|'played'): Promise<GameOnList> {
     const response = await axios.post(`/api/user-games`, {game_id, status});
     const content = await this.byId(response.data.id);
 

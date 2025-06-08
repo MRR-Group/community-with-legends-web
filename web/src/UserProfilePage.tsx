@@ -12,14 +12,16 @@ import EditProfile from "./components/EditProfile.tsx";
 import UserHardware from "./components/UserHardware.tsx";
 import GamesList from "./components/GamesList.tsx";
 import GameOnList from "../../core/src/entities/gameOnList.ts";
+import {useAuth} from "./providers/authProvider.tsx";
 
 function UserProfilePage() {
-  const {userRepository, gameOnListRepository, authRepository} = useCore();
+  const {userRepository, gameOnListRepository, addGameToListUseCase, removeGameFromListUseCase} = useCore();
+  const {loggedUser} = useAuth();
   const [user, setUser] = useState<User>();
   const [userGames, setUserGames] = useState<GameOnList[]>([]);
   const [loading, setLoading] = useState(true);
   const {id} = useParams();
-  const {handleError, clearErrors} = useErrorHandler();
+  const {errors, handleError, clearErrors} = useErrorHandler();
   const [inEditMode, setInEditMode] = useState<boolean>(false);
 
   async function showUser() {
@@ -43,6 +45,26 @@ function UserProfilePage() {
 
   async function refreshUser() {
     setUser(await userRepository.byId(Number(id)));
+  }
+
+  async function handleAddGameToList(gameId?: number, listType?: 'to_play'|'playing'|'played') {
+    const chosenGame = await addGameToListUseCase.addGameToList(gameId, listType);
+
+    addGameToList(chosenGame);
+  }
+
+  function addGameToList(chosenGame: GameOnList) {
+    setUserGames((games) => [...games.filter((item) => item.game.id !== chosenGame.game.id), chosenGame])
+  }
+
+  async function handleRemoveGameFromList(gameId: number) {
+    await removeGameFromListUseCase.removeGameFromList(gameId);
+
+    removeGameFromList(gameId);
+  }
+
+  function removeGameFromList(gameId: number) {
+    setUserGames((games) => games.filter((item) => item.id !== gameId));
   }
 
   useEffect(() => {
@@ -73,14 +95,18 @@ function UserProfilePage() {
         </a>
       </div>
 
-      <div className='pt-4 p-4 md:px-0'>
-        <UserHardware user={user!}/>
-      </div>
+      <UserHardware user={user!}/>
 
-      <div className='flex flex-col 2.5xl:flex-row gap-6 pt-4 p-4 md:px-0 md:pb-4 pb-16'>
-        <GamesList listName='Want to play' listType='to_play' games={userGames} canEdit={authRepository.User?.id === user!.id}/>
-        <GamesList listName='Playing' listType='playing' games={userGames} canEdit={authRepository.User?.id === user!.id}/>
-        <GamesList listName='Played' listType='played' games={userGames} canEdit={authRepository.User?.id === user!.id}/>
+      <Show when={loggedUser?.id === Number(id) || userGames.length > 0}>
+        <div className='flex flex-col 2.5xl:flex-row gap-6 pt-4 p-4 md:px-0'>
+          <GamesList listName='Want to play' listType='to_play' games={userGames} canEdit={loggedUser?.id === Number(id)} errors={errors} onAdd={handleAddGameToList} onDelete={handleRemoveGameFromList}/>
+          <GamesList listName='Playing' listType='playing' games={userGames} canEdit={loggedUser?.id === Number(id)} errors={errors} onAdd={handleAddGameToList} onDelete={handleRemoveGameFromList}/>
+          <GamesList listName='Played' listType='played' games={userGames} canEdit={loggedUser?.id === Number(id)} errors={errors} onAdd={handleAddGameToList} onDelete={handleRemoveGameFromList}/>
+        </div>
+      </Show>
+
+      <div className='md:pb-4 pb-16'>
+
       </div>
     </div>
   )

@@ -6,13 +6,15 @@ import HardwareItem from "./HardwareItem.tsx";
 import useErrorHandler from "../utils/useErrorHandler.ts";
 import AddNewHardware from "./AddNewHardware.tsx";
 import Show from "./Show.tsx";
+import {useAuth} from "../providers/authProvider.tsx";
 
 interface UserHardwareProps {
   user: User,
 }
 
 export default function UserHardware({user}: UserHardwareProps) {
-  const {hardwareRepository, addHardwareUseCase, editHardwareUseCase, removeHardwareUseCase, authRepository} = useCore();
+  const {hardwareRepository, addHardwareUseCase, editHardwareUseCase, removeHardwareUseCase} = useCore();
+  const {loggedUser} = useAuth();
   const [hardwareList, setHardwareList] = useState<Hardware[]>([]);
   const {errors, handleError, clearErrors} = useErrorHandler();
 
@@ -74,28 +76,34 @@ export default function UserHardware({user}: UserHardwareProps) {
     refreshHardwareList();
   }, [user]);
 
+  if (hardwareList.length <= 0 && loggedUser?.id !== user?.id) {
+    return null;
+  }
+
   return (
-    <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px] max-w-96 md:max-w-128 mx-auto'>
-      <div className='flex flex-col gap-4 bg-background rounded-lg max-w-96 md:min-w-96 md:max-w-128 pb-4 pt-4 items-center box-border'>
-        <div className='text-3xl'>
-          Hardware
+    <div className='pt-4 p-4 md:px-0'>
+      <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px] max-w-96 md:max-w-128 mx-auto'>
+        <div className='flex flex-col gap-4 bg-background rounded-lg max-w-96 md:min-w-96 md:max-w-128 pb-4 pt-4 items-center box-border'>
+          <div className='text-3xl'>
+            Hardware
+          </div>
+          {hardwareList.map((hardware) => (
+            <HardwareItem
+              key={hardware.id}
+              id={hardware.id}
+              errors={errors}
+              title={hardware.title}
+              value={hardware.value}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              clearErrors={clearErrors}
+              canEdit={loggedUser?.id === user?.id}
+            />
+          ))}
+          <Show when={loggedUser?.id === user?.id}>
+            <AddNewHardware errors={errors} onSave={handleAddItem}/>
+          </Show>
         </div>
-        {hardwareList.map((hardware) => (
-          <HardwareItem
-            key={hardware.id}
-            id={hardware.id}
-            errors={errors}
-            title={hardware.title}
-            value={hardware.value}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-            clearErrors={clearErrors}
-            canEdit={authRepository.User?.id === user.id}
-          />
-        ))}
-        <Show when={authRepository.User?.id === user.id}>
-          <AddNewHardware errors={errors} onSave={handleAddItem}/>
-        </Show>
       </div>
     </div>
   )
