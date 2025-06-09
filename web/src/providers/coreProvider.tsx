@@ -33,7 +33,6 @@ import {AddGameToListUseCase} from "../../../core/src/useCases/addGameToListUseC
 import {RemoveGameFromListUseCase} from "../../../core/src/useCases/removeGameFromListUseCase.ts";
 import ProposalsRepository from "../../../core/src/repositories/proposalsRepository.ts";
 import {CreateProposalUseCase} from "../../../core/src/useCases/createProposalUseCase.ts";
-import {DeleteProposalUseCase} from "../../../core/src/useCases/deleteProposalUseCase.ts";
 import {AcceptProposalUseCase} from "../../../core/src/useCases/acceptProposalUseCase.ts";
 import {RejectProposalUseCase} from "../../../core/src/useCases/rejectProposalUseCase.ts";
 import {LikeProposalUseCase} from "../../../core/src/useCases/likeProposalUseCase.ts";
@@ -75,7 +74,6 @@ interface CoreContextType {
   addGameToListUseCase: AddGameToListUseCase,
   removeGameFromListUseCase: RemoveGameFromListUseCase,
   createProposalUseCase: CreateProposalUseCase,
-  deleteProposalUseCase: DeleteProposalUseCase,
   acceptProposalUseCase: AcceptProposalUseCase,
   rejectProposalUseCase: RejectProposalUseCase,
   likeProposalUseCase: LikeProposalUseCase,
@@ -117,8 +115,7 @@ const removeHardwareUseCase = new RemoveHardwareUseCase(hardwareRepository);
 const addGameToListUseCase = new AddGameToListUseCase(gameOnListRepository);
 const removeGameFromListUseCase = new RemoveGameFromListUseCase(gameOnListRepository);
 const createProposalUseCase = new CreateProposalUseCase(proposalRepository);
-const deleteProposalUseCase = new DeleteProposalUseCase(proposalRepository);
-const acceptProposalUseCase = new AcceptProposalUseCase(proposalRepository);
+const acceptProposalUseCase = new AcceptProposalUseCase(proposalRepository, gameOnListRepository);
 const rejectProposalUseCase = new RejectProposalUseCase(proposalRepository);
 const likeProposalUseCase = new LikeProposalUseCase(proposalRepository);
 const dislikeProposalUseCase = new DislikeProposalUseCase(proposalRepository);
@@ -159,7 +156,6 @@ const defaultContext:CoreContextType = {
   addGameToListUseCase,
   removeGameFromListUseCase,
   createProposalUseCase,
-  deleteProposalUseCase,
   acceptProposalUseCase,
   rejectProposalUseCase,
   likeProposalUseCase,

@@ -52,35 +52,39 @@ export default function EditGamesList({games, errors, onAdd, onDelete, onDone, l
             </div>
           ))}
         </div>
-        <SelectFetch
-          styles={{
-            control: (styles) => ({...styles, backgroundColor: '#212023', color: '#FFF', border: 'none', boxShadow: 'none'}),
-            option: (styles) => ({...styles, backgroundColor: '#212023', color: '#FFF'}),
-            placeholder: (styles) => ({...styles, color: '#8e8f90' , fontSize: '14px', fontWeight: '400'}),
-            singleValue: (styles) => ({...styles, color: '#FFF'}),
-            input: (styles) => ({...styles, color: '#FFF'}),
-            loadingMessage: (styles) => ({...styles, backgroundColor: '#212023', color: '#FFF'}),
-          }}
-          className='text-text bg-background w-full px-4'
-          placeholder='Select game'
-          url="/api/games/search"
-          value={selectedGame}
-          onChange={setGame}
-          mapResponse={(response: any) => ({
-            options: response.data.map((game: GameDto) => ({
-              value: game.id,
-              label: game.name,
-            })),
-            hasMore: response.links.next !== null,
-          })}
-          queryParams={{
-            limit: 10
-          }}
-        />
-        <ErrorMessage errors={errors} category="game_id"/>
-        <Button value='Add game' onClick={handleAddGame}/>
-        <div className='pb-2'>
-          <Button value='Done' onClick={handleCloseEdit}/>
+        <div className='flex flex-col items-center w-full px-4'>
+          <SelectFetch
+            styles={{
+              control: (styles) => ({...styles, backgroundColor: '#212023', color: '#FFF', border: 'none', boxShadow: 'none'}),
+              option: (styles) => ({...styles, backgroundColor: '#212023', color: '#FFF'}),
+              placeholder: (styles) => ({...styles, color: '#8e8f90' , fontSize: '14px', fontWeight: '400'}),
+              singleValue: (styles) => ({...styles, color: '#FFF'}),
+              input: (styles) => ({...styles, color: '#FFF'}),
+              loadingMessage: (styles) => ({...styles, backgroundColor: '#212023', color: '#FFF'}),
+            }}
+            className='text-text bg-background w-full'
+            placeholder='Select game'
+            url="/api/games/search"
+            value={selectedGame}
+            onChange={setGame}
+            mapResponse={(response: any) => ({
+              options: response.data.map((game: GameDto) => ({
+                value: game.id,
+                label: game.name,
+              })),
+              hasMore: response.links.next !== null,
+            })}
+            queryParams={{
+              limit: 10
+            }}
+          />
+          <ErrorMessage errors={errors} category="game_id"/>
+          <div className='pt-3'>
+            <Button value='Add game' onClick={handleAddGame}/>
+          </div>
+          <div className='pt-3 pb-2'>
+            <Button value='Done' onClick={handleCloseEdit}/>
+          </div>
         </div>
       </div>
     </div>

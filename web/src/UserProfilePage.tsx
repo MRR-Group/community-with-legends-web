@@ -14,12 +14,14 @@ import GamesList from "./components/GamesList.tsx";
 import GameOnList from "../../core/src/entities/gameOnList.ts";
 import {useAuth} from "./providers/authProvider.tsx";
 import ProposalsList from "./components/ProposalsList.tsx";
+import Proposal from "../../core/src/entities/proposal.ts";
 
 function UserProfilePage() {
-  const {userRepository, gameOnListRepository, addGameToListUseCase, removeGameFromListUseCase} = useCore();
+  const {userRepository, gameOnListRepository, addGameToListUseCase, removeGameFromListUseCase, proposalRepository, createProposalUseCase, acceptProposalUseCase, rejectProposalUseCase} = useCore();
   const {loggedUser} = useAuth();
   const [user, setUser] = useState<User>();
   const [userGames, setUserGames] = useState<GameOnList[]>([]);
+  const [gameProposals, setGameProposals] = useState<Proposal[]>([]);
   const [loading, setLoading] = useState(true);
   const {id} = useParams();
   const {errors, handleError, clearErrors} = useErrorHandler();
@@ -42,6 +44,11 @@ function UserProfilePage() {
   async function getUserGames() {
     const games = await gameOnListRepository.byUser(Number(id));
     setUserGames(games);
+  }
+
+  async function getUserProposals() {
+    const proposals = await proposalRepository.byUser(Number(id));
+    setGameProposals(proposals);
   }
 
   async function refreshUser() {
@@ -68,29 +75,37 @@ function UserProfilePage() {
     setUserGames((games) => games.filter((item) => item.id !== gameId));
   }
 
-  async function handleLikeProposal() {
+  async function handleAddProposal(receiverId: number, gameId: number) {
+    const proposedGame = await createProposalUseCase.createProposal(receiverId, gameId);
 
+    addProposalToList(proposedGame);
   }
 
-  async function handleDislikeProposal() {
-
+  function addProposalToList(proposedGame: Proposal) {
+    setGameProposals((proposals) => [...proposals.filter((item) => item.game.id !== proposedGame.game.id), proposedGame])
   }
 
-  async function handleRemoveReaction() {
+  async function handleAcceptProposal(proposalId: number) {
+    const gameOnList = await acceptProposalUseCase.acceptProposal(proposalId);
 
+    addGameToList(gameOnList);
+    removeProposalFromList(proposalId);
   }
 
-  async function handleAcceptProposal() {
+  async function handleRejectProposal(proposalId: number) {
+    await rejectProposalUseCase.rejectProposal(proposalId);
 
+    removeProposalFromList(proposalId);
   }
 
-  async function handleRejectProposal() {
-
+  function removeProposalFromList(proposalId: number) {
+    setGameProposals((proposals) => proposals.filter((item) => item.id !== proposalId));
   }
 
   useEffect(() => {
     showUser();
     getUserGames();
+    getUserProposals();
   }, [id]);
 
   if (loading) {
@@ -129,17 +144,14 @@ function UserProfilePage() {
       </Show>
 
       <div className='pt-4 p-4 md:px-0'>
-        {/*<ProposalsList*/}
-        {/*  sender={}*/}
-        {/*  receiver={}*/}
-        {/*  proposals={}*/}
-        {/*  addProposal={}*/}
-        {/*  likeProposal={handleLikeProposal}*/}
-        {/*  dislikeProposal={handleDislikeProposal}*/}
-        {/*  removeReaction={handleRemoveReaction}*/}
-        {/*  acceptProposal={handleAcceptProposal}*/}
-        {/*  rejectProposal={handleRejectProposal}*/}
-        {/*/>*/}
+        <ProposalsList
+
+          proposals={gameProposals}
+          addProposal={handleAddProposal}
+          acceptProposal={handleAcceptProposal}
+          rejectProposal={handleRejectProposal}
+          user={user!}
+        />
       </div>
 
       <div className='md:pb-4 pb-16'>

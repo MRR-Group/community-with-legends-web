@@ -25,12 +25,10 @@ export default class ProposalsRepository {
     return proposal;
   }
 
-  public async deleteProposal(proposalId: number): Promise<void> {
-    await axios.delete(`/api/proposals/${proposalId}`);
-  }
+  public async acceptProposal(proposalId: number): Promise<number> {
+    const response = await axios.post(`/api/proposals/${proposalId}/accept`);
 
-  public async acceptProposal(proposalId: number): Promise<void> {
-    await axios.post(`/api/proposals/${proposalId}/accept`);
+    return response.data.gameId;
   }
 
   public async rejectProposal(proposalId: number): Promise<void> {
