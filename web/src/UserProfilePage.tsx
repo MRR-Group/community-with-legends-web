@@ -13,6 +13,7 @@ import UserHardware from "./components/UserHardware.tsx";
 import GamesList from "./components/GamesList.tsx";
 import GameOnList from "../../core/src/entities/gameOnList.ts";
 import {useAuth} from "./providers/authProvider.tsx";
+import ProposalsList from "./components/ProposalsList.tsx";
 
 function UserProfilePage() {
   const {userRepository, gameOnListRepository, addGameToListUseCase, removeGameFromListUseCase} = useCore();
@@ -67,6 +68,26 @@ function UserProfilePage() {
     setUserGames((games) => games.filter((item) => item.id !== gameId));
   }
 
+  async function handleLikeProposal() {
+
+  }
+
+  async function handleDislikeProposal() {
+
+  }
+
+  async function handleRemoveReaction() {
+
+  }
+
+  async function handleAcceptProposal() {
+
+  }
+
+  async function handleRejectProposal() {
+
+  }
+
   useEffect(() => {
     showUser();
     getUserGames();
@@ -93,6 +114,8 @@ function UserProfilePage() {
         <a href={`/user/${id}/posts`}>
           <Button value='See Posts'/>
         </a>
+
+
       </div>
 
       <UserHardware user={user!}/>
@@ -105,8 +128,21 @@ function UserProfilePage() {
         </div>
       </Show>
 
-      <div className='md:pb-4 pb-16'>
+      <div className='pt-4 p-4 md:px-0'>
+        {/*<ProposalsList*/}
+        {/*  sender={}*/}
+        {/*  receiver={}*/}
+        {/*  proposals={}*/}
+        {/*  addProposal={}*/}
+        {/*  likeProposal={handleLikeProposal}*/}
+        {/*  dislikeProposal={handleDislikeProposal}*/}
+        {/*  removeReaction={handleRemoveReaction}*/}
+        {/*  acceptProposal={handleAcceptProposal}*/}
+        {/*  rejectProposal={handleRejectProposal}*/}
+        {/*/>*/}
+      </div>
 
+      <div className='md:pb-4 pb-16'>
       </div>
     </div>
   )

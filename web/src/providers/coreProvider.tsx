@@ -31,6 +31,14 @@ import {RemoveHardwareUseCase} from "../../../core/src/useCases/removeHardwareUs
 import GameOnListRepository from "../../../core/src/repositories/gameOnListRepository.ts";
 import {AddGameToListUseCase} from "../../../core/src/useCases/addGameToListUseCase.ts";
 import {RemoveGameFromListUseCase} from "../../../core/src/useCases/removeGameFromListUseCase.ts";
+import ProposalsRepository from "../../../core/src/repositories/proposalsRepository.ts";
+import {CreateProposalUseCase} from "../../../core/src/useCases/createProposalUseCase.ts";
+import {DeleteProposalUseCase} from "../../../core/src/useCases/deleteProposalUseCase.ts";
+import {AcceptProposalUseCase} from "../../../core/src/useCases/acceptProposalUseCase.ts";
+import {RejectProposalUseCase} from "../../../core/src/useCases/rejectProposalUseCase.ts";
+import {LikeProposalUseCase} from "../../../core/src/useCases/likeProposalUseCase.ts";
+import {DislikeProposalUseCase} from "../../../core/src/useCases/dislikeProposalUseCase.ts";
+import {RemoveProposalReactionUseCase} from "../../../core/src/useCases/removeProposalReactionUseCase.ts";
 
 interface CoreContextType {
   authService: AuthService,
@@ -41,6 +49,7 @@ interface CoreContextType {
   hardwareRepository: HardwareRepository,
   editProfileRepository: EditProfileRepository,
   gameOnListRepository: GameOnListRepository,
+  proposalRepository: ProposalsRepository,
   registerUseCase: RegisterUseCase,
   loginUseCase: LoginUseCase,
   logoutUseCase: LogoutUseCase,
@@ -65,6 +74,13 @@ interface CoreContextType {
   removeHardwareUseCase: RemoveHardwareUseCase,
   addGameToListUseCase: AddGameToListUseCase,
   removeGameFromListUseCase: RemoveGameFromListUseCase,
+  createProposalUseCase: CreateProposalUseCase,
+  deleteProposalUseCase: DeleteProposalUseCase,
+  acceptProposalUseCase: AcceptProposalUseCase,
+  rejectProposalUseCase: RejectProposalUseCase,
+  likeProposalUseCase: LikeProposalUseCase,
+  dislikeProposalUseCase: DislikeProposalUseCase,
+  removeProposalReactionUseCase: RemoveProposalReactionUseCase,
 }
 
 const authService = new AuthService();
@@ -75,6 +91,7 @@ const commentsRepository = new CommentsRepository();
 const hardwareRepository = new HardwareRepository();
 const editProfileRepository = new EditProfileRepository();
 const gameOnListRepository = new GameOnListRepository();
+const proposalRepository = new ProposalsRepository();
 const registerUseCase = new RegisterUseCase(authService);
 const loginUseCase = new LoginUseCase(authService, authRepository, userRepository);
 const logoutUseCase = new LogoutUseCase(authService, authRepository);
@@ -99,6 +116,13 @@ const editHardwareUseCase = new EditHardwareUseCase(hardwareRepository);
 const removeHardwareUseCase = new RemoveHardwareUseCase(hardwareRepository);
 const addGameToListUseCase = new AddGameToListUseCase(gameOnListRepository);
 const removeGameFromListUseCase = new RemoveGameFromListUseCase(gameOnListRepository);
+const createProposalUseCase = new CreateProposalUseCase(proposalRepository);
+const deleteProposalUseCase = new DeleteProposalUseCase(proposalRepository);
+const acceptProposalUseCase = new AcceptProposalUseCase(proposalRepository);
+const rejectProposalUseCase = new RejectProposalUseCase(proposalRepository);
+const likeProposalUseCase = new LikeProposalUseCase(proposalRepository);
+const dislikeProposalUseCase = new DislikeProposalUseCase(proposalRepository);
+const removeProposalReactionUseCase = new RemoveProposalReactionUseCase(proposalRepository);
 
 const defaultContext:CoreContextType = {
   authService,
@@ -109,6 +133,7 @@ const defaultContext:CoreContextType = {
   hardwareRepository,
   editProfileRepository,
   gameOnListRepository,
+  proposalRepository,
   registerUseCase,
   loginUseCase,
   logoutUseCase,
@@ -133,6 +158,13 @@ const defaultContext:CoreContextType = {
   removeHardwareUseCase,
   addGameToListUseCase,
   removeGameFromListUseCase,
+  createProposalUseCase,
+  deleteProposalUseCase,
+  acceptProposalUseCase,
+  rejectProposalUseCase,
+  likeProposalUseCase,
+  dislikeProposalUseCase,
+  removeProposalReactionUseCase,
 }
 
 const Context = createContext<CoreContextType>(defaultContext);
