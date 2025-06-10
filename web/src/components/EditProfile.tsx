@@ -5,6 +5,7 @@ import Button from "./Button.tsx";
 import {useCore} from "../providers/coreProvider.tsx";
 import {User} from "../../../core/src/entities/user.ts";
 import UploadButton from "./UploadButton.tsx";
+import Show from "./Show.tsx";
 
 interface  EditProfileProps {
   data: User,
@@ -66,6 +67,11 @@ export default function EditProfile({data, onHide, onChange}:EditProfileProps) {
               </div>
             </div>
           </div>
+          <Show when={data.hasTwitchAccount && !data.hasPassword}>
+          <a href={`/user/${data.id}/set-password`}>
+            <Button value='Set password'/>
+          </a>
+          </Show>
           <Button value='Go back' onClick={onHide}/>
         </div>
       </div>

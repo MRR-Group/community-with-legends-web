@@ -46,4 +46,10 @@ export class AuthService {
         });
     }
 
+    public async setPasswordTwitch(password: Password, passwordConfirmation: Password): Promise<void> {
+        await axios.post(`/api/user/set-password`, {
+            password: password.value,
+            password_confirmation: passwordConfirmation.value,
+        });
+    }
 }

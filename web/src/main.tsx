@@ -17,6 +17,7 @@ import {AuthProvider} from "./providers/authProvider.tsx";
 import UserPostsPage from "./UserPostsPage.tsx";
 import UserProfilePage from "./UserProfilePage.tsx";
 import {InitTranslation} from "./translations.ts";
+import SetPasswordTwitchPage from "./SetPasswordTwitch.tsx";
 
 InitTranslation();
 
@@ -52,7 +53,12 @@ const router = createBrowserRouter([
   {
     path: "/user/:id/posts",
     Component: UserPostsPage,
+  },
+  {
+    path: "/user/:id/set-password",
+    Component: SetPasswordTwitchPage,
   }
+
 ]);
 
 createRoot(document.getElementById('root')!).render(

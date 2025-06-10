@@ -6,6 +6,7 @@ import Options from "./Options.tsx";
 import toast from "react-hot-toast";
 import {useNavigate} from "react-router";
 import useErrorHandler from "../utils/useErrorHandler.ts";
+import VerifiedIcon from "../assets/verified.png";
 
 interface UserProfileProps {
   user: User,
@@ -73,8 +74,17 @@ export default function UserProfile({user, onEdit}: UserProfileProps) {
           className='h-28 w-28 rounded-full bg-text object-cover'
           alt='User Avatar'
         />
-        <div className='pt-2 text-3xl'>
-          {user.name}
+        <div className="pt-2 relative w-full flex justify-center">
+          <div className="text-3xl relative">
+            <span className="block text-center w-full">{user.name}</span>
+            <Show when={user.hasTwitchAccount}>
+              <img
+                src={VerifiedIcon}
+                alt='Verified icon'
+                className="h-6 w-6 absolute top-1/2 -translate-y-1/2 left-full ml-2"
+              />
+            </Show>
+          </div>
         </div>
         <div className='text-xl'>
           {user.email.value}

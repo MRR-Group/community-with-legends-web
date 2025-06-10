@@ -38,6 +38,7 @@ import {RejectProposalUseCase} from "../../../core/src/useCases/rejectProposalUs
 import {LikeProposalUseCase} from "../../../core/src/useCases/likeProposalUseCase.ts";
 import {DislikeProposalUseCase} from "../../../core/src/useCases/dislikeProposalUseCase.ts";
 import {RemoveProposalReactionUseCase} from "../../../core/src/useCases/removeProposalReactionUseCase.ts";
+import {SetPasswordTwitchUseCase} from "../../../core/src/useCases/setPasswordTwitchUseCase.ts";
 
 interface CoreContextType {
   authService: AuthService,
@@ -79,6 +80,7 @@ interface CoreContextType {
   likeProposalUseCase: LikeProposalUseCase,
   dislikeProposalUseCase: DislikeProposalUseCase,
   removeProposalReactionUseCase: RemoveProposalReactionUseCase,
+  setPasswordTwitchUseCase: SetPasswordTwitchUseCase,
 }
 
 const authService = new AuthService();
@@ -120,6 +122,7 @@ const rejectProposalUseCase = new RejectProposalUseCase(proposalRepository);
 const likeProposalUseCase = new LikeProposalUseCase(proposalRepository);
 const dislikeProposalUseCase = new DislikeProposalUseCase(proposalRepository);
 const removeProposalReactionUseCase = new RemoveProposalReactionUseCase(proposalRepository);
+const setPasswordTwitchUseCase = new SetPasswordTwitchUseCase(authService);
 
 const defaultContext:CoreContextType = {
   authService,
@@ -161,6 +164,7 @@ const defaultContext:CoreContextType = {
   likeProposalUseCase,
   dislikeProposalUseCase,
   removeProposalReactionUseCase,
+  setPasswordTwitchUseCase,
 }
 
 const Context = createContext<CoreContextType>(defaultContext);
