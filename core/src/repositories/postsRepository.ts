@@ -4,11 +4,12 @@ import Post from "../entities/post.ts";
 import PostDto, {postDtoToEntity} from "../dto/postDto.ts";
 
 export default class PostsRepository {
-    public async all():Promise<Post[]> {
-        const response = await axios.get<Response<PostDto[]>>(`/api/posts`);
+    public async all(page: number):Promise<{ posts: Post[], reachedEnd: boolean }> {
+        const response = await axios.get<Response<PostDto[]>>(`/api/posts?page=${page}`);
         const posts = response.data.data.map((post) => postDtoToEntity(post));
+        const reachedEnd = response.data.meta.current_page >= response.data.meta.last_page;
 
-        return posts;
+        return {posts, reachedEnd};
     }
 
     public async byId(postId: number):Promise<Post> {
