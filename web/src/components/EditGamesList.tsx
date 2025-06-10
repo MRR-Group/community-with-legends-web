@@ -4,6 +4,7 @@ import GameDto from "../../../core/src/dto/gameDto.ts";
 import {SelectFetch} from "react-select-fetch";
 import {useState} from "react";
 import ErrorMessage from "./ErrorMessage.tsx";
+import {useTranslation} from "react-i18next";
 
 interface EditGamesListProps {
   games: GameOnList[],
@@ -21,6 +22,8 @@ interface SelectElement {
 
 export default function EditGamesList({games, errors, onAdd, onDelete, onDone, listName}: EditGamesListProps) {
   const [selectedGame, setGame] = useState<SelectElement|null>(null);
+  const {t} = useTranslation('profilePage');
+
   async function handleAddGame() {
     setGame(null);
     onAdd(selectedGame?.value);
@@ -47,7 +50,7 @@ export default function EditGamesList({games, errors, onAdd, onDelete, onDone, l
                 {item.game.name}
               </div>
               <div className='flex items-center'>
-                <Button value='Remove' onClick={() => handleRemoveGame(item.id)}/>
+                <Button value={t('Remove')} onClick={() => handleRemoveGame(item.id)}/>
               </div>
             </div>
           ))}
@@ -63,7 +66,7 @@ export default function EditGamesList({games, errors, onAdd, onDelete, onDone, l
               loadingMessage: (styles) => ({...styles, backgroundColor: '#212023', color: '#FFF'}),
             }}
             className='text-text bg-background w-full'
-            placeholder='Select game'
+            placeholder={t('Select game')}
             url="/api/games/search"
             value={selectedGame}
             onChange={setGame}
@@ -80,10 +83,10 @@ export default function EditGamesList({games, errors, onAdd, onDelete, onDone, l
           />
           <ErrorMessage errors={errors} category="game_id"/>
           <div className='pt-3'>
-            <Button value='Add game' onClick={handleAddGame}/>
+            <Button value={t('Add game')} onClick={handleAddGame}/>
           </div>
           <div className='pt-3 pb-2'>
-            <Button value='Done' onClick={handleCloseEdit}/>
+            <Button value={t('Done')} onClick={handleCloseEdit}/>
           </div>
         </div>
       </div>

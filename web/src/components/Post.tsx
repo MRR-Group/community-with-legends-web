@@ -94,7 +94,7 @@ export default function Post({data, onHide, isInPreview}: PostProps) {
             <div className='flex flex-col gap-4 bg-background px-5 rounded-lg max-w-96 md:min-w-96 md:max-w-128 pb-4 relative box-border'>
                 <div className='flex pt-4'>
                     <a href={`/user/${data.user.id}`}>
-                        <img src={data.user.avatar} className='h-14 w-14 rounded-full bg-text object-cover' alt='User Avatar'/>
+                        <img src={data.user.avatar} className='h-14 w-14 rounded-full bg-text object-cover cursor-pointer' alt='User Avatar'/>
                     </a>
                     <div className='flex flex-col ml-4'>
                         <a className='text-xl hover:underline cursor-pointer' href={`/user/${data.user.id}`}>

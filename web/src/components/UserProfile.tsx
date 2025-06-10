@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import {useNavigate} from "react-router";
 import useErrorHandler from "../utils/useErrorHandler.ts";
 import VerifiedIcon from "../assets/verified.png";
+import {useTranslation} from "react-i18next";
 
 interface UserProfileProps {
   user: User,
@@ -18,6 +19,7 @@ export default function UserProfile({user, onEdit}: UserProfileProps) {
   const {isLoggedIn} = useAuth();
   const {handleError} = useErrorHandler();
   const navigate = useNavigate();
+  const {t} = useTranslation('profilePage');
 
   async function reportUser() {
     try {
@@ -53,17 +55,17 @@ export default function UserProfile({user, onEdit}: UserProfileProps) {
             <Options>
               <Show when={authRepository.User?.id === user.id}>
                 <div className="hover:text-text-disabled cursor-pointer" onClick={onEdit}>
-                  Edit profile
+                  {t('Edit profile')}
                 </div>
               </Show>
               <Show when={isLoggedIn && authRepository.User?.id !== user.id}>
                 <div className="hover:text-text-disabled cursor-pointer" onClick={reportUser}>
-                  Report user
+                  {t('Report user')}
                 </div>
               </Show>
               <Show when={authRepository.User?.can('banUsers') && authRepository.User?.id !== user.id}>
                 <div className="hover:text-text-disabled cursor-pointer" onClick={banUser}>
-                  Ban user
+                  {t('Ban user')}
                 </div>
               </Show>
             </Options>

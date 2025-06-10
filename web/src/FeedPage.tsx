@@ -82,13 +82,13 @@ function FeedPage() {
       <div className='overflow-y-hidden h-full'>
         <NavigationBar active="feed"/>
         <Show when={isLoggedIn}>
-          <div className='mx-auto w-fit mb-8'>
+          <div className='flex justify-center mb-8 w-full px-4'>
             <CreatePost onSubmit={onCreatePost} errors={errors}/>
           </div>
         </Show>
         <div className='flex flex-wrap justify-evenly'>
           {columns.map((columnPosts, colIdx) => (
-            <div key={colIdx} className="flex flex-col gap-8 p-4 md:p-0 md:pb-4 pb-16">
+            <div key={colIdx} className="flex flex-col gap-8 p-4 md:p-0 md:pb-10 pb-24">
               {columnPosts.map(post => (
                 <Post data={post} key={post.id} onHide={handlePostHide}/>
               ))}

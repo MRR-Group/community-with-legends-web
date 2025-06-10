@@ -6,6 +6,7 @@ import Show from "./Show.tsx";
 import {useAuth} from "../providers/authProvider.tsx";
 import {useEffect, useState} from "react";
 import {useCore} from "../providers/coreProvider.tsx";
+import {useTranslation} from "react-i18next";
 
 interface ProposalItemProps {
   id: number,
@@ -23,6 +24,7 @@ export default function ProposalItem({id, sender, receiver, game, startVotes, ac
   const {loggedUser} = useAuth();
   const [votes, setVotes] = useState<number>(startVotes - startUserVoteType);
   const [voteType, setVoteType] = useState(startUserVoteType);
+  const {t} = useTranslation('profilePage');
 
   async function handleLikeProposal() {
     await likeProposalUseCase.likeProposal(id);
@@ -51,30 +53,32 @@ export default function ProposalItem({id, sender, receiver, game, startVotes, ac
       </div>
       <div className='pl-4 pr-4'>
         <div className='pb-6 md:pb-12'>
-          Suggester:
+          {t('Suggester')}
         </div>
         <div className='flex flex-col gap-2'>
           <Show when={loggedUser && loggedUser?.id === receiver.id}>
-            <Button value='Accept' onClick={() => acceptProposal(id)}/>
-            <Button value='Reject' onClick={() => rejectProposal(id)}/>
+            <Button value={t('Accept')} onClick={() => acceptProposal(id)}/>
+            <Button value={t('Reject')} onClick={() => rejectProposal(id)}/>
           </Show>
           <Show when={loggedUser && loggedUser?.id !== receiver.id && loggedUser?.id !== sender.id && voteType === 0}>
-            <Button value='Vote for' onClick={handleLikeProposal}/>
-            <Button value='Vote against' onClick={handleDislikeProposal}/>
+            <Button value={t('Vote for')} onClick={handleLikeProposal}/>
+            <Button value={t('Vote against')} onClick={handleDislikeProposal}/>
           </Show>
           <Show when={loggedUser && loggedUser?.id !== receiver.id && loggedUser?.id !== sender.id && voteType !== 0}>
-            <Button value='Revoke vote' onClick={handleRemoveReaction}/>
+            <Button value={t('Revoke vote')} onClick={handleRemoveReaction}/>
           </Show>
         </div>
         <div className='pt-3 md:pt-8'>
-          Votes: {votes + voteType}
+          {t('Votes')} {votes + voteType}
         </div>
       </div>
       <div className='flex flex-col items-center'>
-        <img src={sender.avatar} alt='Suggester Avatar' className='h-10 w-10 md:h-12 md:w-12 rounded-full bg-text object-cover'/>
-        <div className='text-xs md:text-sm text-wrap text-center w-12 md:w-24'>
+        <a href={`/user/${sender.id}`}>
+          <img src={sender.avatar} alt='Suggester Avatar' className='h-10 w-10 md:h-12 md:w-12 rounded-full bg-text object-cover cursor-pointer'/>
+        </a>
+        <a className='text-xs md:text-sm text-wrap text-center w-12 md:w-24 hover:underline cursor-pointer' href={`/user/${sender.id}`}>
           {sender.name}
-        </div>
+        </a>
       </div>
     </div>
   )

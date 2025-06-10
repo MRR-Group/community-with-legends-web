@@ -2,6 +2,7 @@ import Input from "./Input.tsx";
 import {useEffect, useState} from "react";
 import AcceptButton from "./AcceptButton.tsx";
 import DeclineButton from "./DeclineButton.tsx";
+import {useTranslation} from "react-i18next";
 
 interface EditHardwareProps {
   title: string,
@@ -14,6 +15,7 @@ interface EditHardwareProps {
 export default function EditHardware({title, value, errors, onAccept, onDecline}: EditHardwareProps) {
   const [currentTitle, setCurrentTitle] = useState(title);
   const [currentValue, setCurrentValue] = useState(value);
+  const {t} = useTranslation('profilePage');
 
   useEffect(() => {
     setCurrentTitle(title);
@@ -34,7 +36,7 @@ export default function EditHardware({title, value, errors, onAccept, onDecline}
     <div className='w-full max-w-72'>
       <div className='flex justify-end items-center gap-1'>
         <div className='w-full'>
-          <Input errors={errors} placeholder='Component' type='text' value={currentTitle} onChange={setCurrentTitle} name='title'/>
+          <Input errors={errors} placeholder={t('Component type')} type='text' value={currentTitle} onChange={setCurrentTitle} name='title'/>
         </div>
         <div className='mt-2'>
           <AcceptButton onClick={handleAcceptClick}/>
@@ -43,7 +45,7 @@ export default function EditHardware({title, value, errors, onAccept, onDecline}
           <DeclineButton onClick={handleDeclineClick}/>
         </div>
       </div>
-      <Input errors={errors} placeholder='Item' type='text' value={currentValue} onChange={setCurrentValue} name='value'/>
+      <Input errors={errors} placeholder={t('Component model')} type='text' value={currentValue} onChange={setCurrentValue} name='value'/>
     </div>
   )
 }

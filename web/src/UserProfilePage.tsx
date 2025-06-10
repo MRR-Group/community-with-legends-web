@@ -15,6 +15,7 @@ import GameOnList from "../../core/src/entities/gameOnList.ts";
 import {useAuth} from "./providers/authProvider.tsx";
 import ProposalsList from "./components/ProposalsList.tsx";
 import Proposal from "../../core/src/entities/proposal.ts";
+import {useTranslation} from "react-i18next";
 
 function UserProfilePage() {
   const {userRepository, gameOnListRepository, addGameToListUseCase, removeGameFromListUseCase, proposalRepository, createProposalUseCase, acceptProposalUseCase, rejectProposalUseCase} = useCore();
@@ -26,6 +27,7 @@ function UserProfilePage() {
   const {id} = useParams();
   const {errors, handleError, clearErrors} = useErrorHandler();
   const [inEditMode, setInEditMode] = useState<boolean>(false);
+  const {t} = useTranslation('profilePage');
 
   async function showUser() {
     try {
@@ -109,7 +111,7 @@ function UserProfilePage() {
   }, [id]);
 
   if (loading) {
-    return <Loading isLoading={loading} active='profile' text='Loading user profile...'/>
+    return <Loading isLoading={loading} active='profile' text={t('Loading user profile...')}/>
   }
 
   return (
@@ -127,7 +129,7 @@ function UserProfilePage() {
 
       <div className='flex justify-center'>
         <a href={`/user/${id}/posts`}>
-          <Button value='See Posts'/>
+          <Button value={t('See posts')}/>
         </a>
 
 
@@ -137,15 +139,14 @@ function UserProfilePage() {
 
       <Show when={loggedUser?.id === Number(id) || userGames.length > 0}>
         <div className='flex flex-col 2.5xl:flex-row gap-6 pt-4 p-4 md:px-0'>
-          <GamesList listName='Want to play' listType='to_play' games={userGames} canEdit={loggedUser?.id === Number(id)} errors={errors} onAdd={handleAddGameToList} onDelete={handleRemoveGameFromList}/>
-          <GamesList listName='Playing' listType='playing' games={userGames} canEdit={loggedUser?.id === Number(id)} errors={errors} onAdd={handleAddGameToList} onDelete={handleRemoveGameFromList}/>
-          <GamesList listName='Played' listType='played' games={userGames} canEdit={loggedUser?.id === Number(id)} errors={errors} onAdd={handleAddGameToList} onDelete={handleRemoveGameFromList}/>
+          <GamesList listName={t('Want to play')} listType='to_play' games={userGames} canEdit={loggedUser?.id === Number(id)} errors={errors} onAdd={handleAddGameToList} onDelete={handleRemoveGameFromList}/>
+          <GamesList listName={t('Playing')} listType='playing' games={userGames} canEdit={loggedUser?.id === Number(id)} errors={errors} onAdd={handleAddGameToList} onDelete={handleRemoveGameFromList}/>
+          <GamesList listName={t('Played')} listType='played' games={userGames} canEdit={loggedUser?.id === Number(id)} errors={errors} onAdd={handleAddGameToList} onDelete={handleRemoveGameFromList}/>
         </div>
       </Show>
 
       <div className='pt-4 p-4 md:px-0'>
         <ProposalsList
-
           proposals={gameProposals}
           addProposal={handleAddProposal}
           acceptProposal={handleAcceptProposal}

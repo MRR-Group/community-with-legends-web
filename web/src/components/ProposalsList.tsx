@@ -8,6 +8,7 @@ import {useAuth} from "../providers/authProvider.tsx";
 import Show from "./Show.tsx";
 import {User} from "../../../core/src/entities/user.ts";
 import toast from "react-hot-toast";
+import {useTranslation} from "react-i18next";
 
 interface ProposalsListProps {
   proposals: Proposal[],
@@ -25,6 +26,7 @@ interface SelectElement {
 export default function ProposalsList({proposals, addProposal, acceptProposal, rejectProposal, user}: ProposalsListProps) {
   const [selectedGame, setGame] = useState<SelectElement|null>(null);
   const {loggedUser} = useAuth();
+  const {t} = useTranslation('profilePage');
 
   async function handleAddProposal() {
     if(selectedGame) {
@@ -41,7 +43,7 @@ export default function ProposalsList({proposals, addProposal, acceptProposal, r
       <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px]'>
         <div className='relative flex gap-4 bg-background rounded-lg max-w-96 md:min-w-96 md:max-w-128 pb-4 pt-4 items-center box-border'>
           <div className='flex justify-evenly text-3xl w-full'>
-            Suggestions
+            {t('Suggestions')}
           </div>
         </div>
       </div>
@@ -72,7 +74,7 @@ export default function ProposalsList({proposals, addProposal, acceptProposal, r
               loadingMessage: (styles) => ({...styles, backgroundColor: '#212023', color: '#FFF'}),
             }}
             className='text-text w-full'
-            placeholder='Select game'
+            placeholder={t('Select game')}
             url="/api/games/search"
             value={selectedGame}
             onChange={setGame}
@@ -88,7 +90,7 @@ export default function ProposalsList({proposals, addProposal, acceptProposal, r
             }}
           />
           <div className='pt-3'>
-            <Button value='Recommend' onClick={handleAddProposal}/>
+            <Button value={t('Recommend')} onClick={handleAddProposal}/>
           </div>
         </div>
       </Show>

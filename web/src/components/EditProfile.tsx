@@ -6,6 +6,7 @@ import {useCore} from "../providers/coreProvider.tsx";
 import {User} from "../../../core/src/entities/user.ts";
 import UploadButton from "./UploadButton.tsx";
 import Show from "./Show.tsx";
+import {useTranslation} from "react-i18next";
 
 interface  EditProfileProps {
   data: User,
@@ -17,6 +18,7 @@ export default function EditProfile({data, onHide, onChange}:EditProfileProps) {
   const {changeNameUseCase, changeAvatarUseCase, deleteAvatarUseCase} = useCore();
   const {errors} = useErrorHandler();
   const [name, setName] = useState<string>();
+  const {t} = useTranslation('profilePage');
 
   useEffect(() => {
   }, [data]);
@@ -48,11 +50,11 @@ export default function EditProfile({data, onHide, onChange}:EditProfileProps) {
             />
             <div className='flex flex-col items-center gap-2.5'>
               <UploadButton onClick={handleNewAvatar}/>
-              <Button value='Delete avatar' onClick={handleDeleteAvatar}/>
+              <Button value={t('Delete avatar')} onClick={handleDeleteAvatar}/>
             </div>
           </div>
           <div className='text-xl'>
-            Nickname
+            {t('Nickname')}
             <div className='flex gap-4'>
               <Input
                 onChange={setName}
@@ -63,16 +65,16 @@ export default function EditProfile({data, onHide, onChange}:EditProfileProps) {
                 name='name'
               />
               <div className='my-auto mt-2.5'>
-                <Button value='Change' onClick={handleNameChange}/>
+                <Button value={t('Change')} onClick={handleNameChange}/>
               </div>
             </div>
           </div>
           <Show when={data.hasTwitchAccount && !data.hasPassword}>
           <a href={`/user/${data.id}/set-password`}>
-            <Button value='Set password'/>
+            <Button value={t('Set password')}/>
           </a>
           </Show>
-          <Button value='Go back' onClick={onHide}/>
+          <Button value={t('Go back')} onClick={onHide}/>
         </div>
       </div>
     </div>

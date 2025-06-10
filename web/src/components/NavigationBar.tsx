@@ -5,6 +5,7 @@ import {useAuth} from "../providers/authProvider.tsx";
 import {useNavigate} from "react-router";
 import {useCore} from "../providers/coreProvider.tsx";
 import {useTranslation} from "react-i18next";
+import LangButton from "./LangButton.tsx";
 
 interface NavigationBarProps {
   active: string,
@@ -21,7 +22,9 @@ export default function NavigationBar({active}: NavigationBarProps) {
       <a href='/' className='mx-auto'>
         <img src={Logo} alt='Logo' className='object-contain object-center'/>
       </a>
-      <ul className='flex w-full justify-center md:justify-end ml-auto fixed bottom-0 left-0 md:static bg-background p-2 md:p-0 md:bg-transparent z-20'>
+      <ul className='flex w-full justify-center md:justify-end ml-auto fixed bottom-0 left-0 md:static bg-background p-2 md:p-0 md:bg-transparent z-100'>
+        <LangButton/>
+
         <NavButton
           active={active === "feed"}
           onClick={() => navigate('/')}
@@ -36,7 +39,7 @@ export default function NavigationBar({active}: NavigationBarProps) {
             icon="M16.249 5.75C16.249 6.74456 15.8539 7.69839 15.1507 8.40165C14.4474 9.10491 13.4936 9.5 12.499 9.5C11.5044 9.5 10.5506 9.10491 9.84735 8.40165C9.14409 7.69839 8.749 6.74456 8.749 5.75C8.749 4.75544 9.14409 3.80161 9.84735 3.09835C10.5506 2.39509 11.5044 2 12.499 2C13.4936 2 14.4474 2.39509 15.1507 3.09835C15.8539 3.80161 16.249 4.75544 16.249 5.75ZM5 19.868C5.03213 17.9004 5.83634 16.0242 7.23918 14.644C8.64202 13.2639 10.5311 12.4905 12.499 12.4905C14.4669 12.4905 16.356 13.2639 17.7588 14.644C19.1617 16.0242 19.9659 17.9004 19.998 19.868C17.6454 20.9468 15.0871 21.5035 12.499 21.5C9.823 21.5 7.283 20.916 5 19.868Z"
           />
         </Show>
-        <li className='flex justify-center ml-12'>
+        <li className='flex justify-center ml-8'>
           <Show when={!isLoggedIn}>
             <a href="/login">
               <div
@@ -49,7 +52,7 @@ export default function NavigationBar({active}: NavigationBarProps) {
           <Show when={isLoggedIn}>
             <div
               onClick={logOut}
-              className='flex items-center border-1 rounded-xl p-1.5 px-4 text-text transition-all delay-100 hover:bg-primary hover:scale-105 active:scale-90 cursor-pointer'>
+              className='flex items-center border-1 rounded-xl p-1.5 px-4 text-text transition-all delay-100 hover:bg-primary hover:scale-105 active:scale-90 cursor-pointer text-nowrap'>
               {t('Log out')}
             </div>
           </Show>

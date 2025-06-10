@@ -17,7 +17,7 @@ function SetPasswordTwitchPage() {
   const {setPasswordTwitchUseCase} = useCore();
   const navigate = useNavigate();
   const {id} = useParams();
-  const {t} = useTranslation('');
+  const {t} = useTranslation('setPasswordTwitch');
 
   const onSubmit: SubmitHandler<SetPasswordForm> = async (data) => {
     try {

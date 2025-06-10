@@ -52,9 +52,9 @@ export default function CreatePost({onSubmit, errors}: CreatePostFormProps) {
     };
 
     return(
-        <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px] max-w-96 md:max-w-128'>
-            <div className='flex flex-col gap-4 bg-background px-4 py-4 rounded-lg max-w-96 md:max-w-128 relative box-border'>
-                <form onSubmit={handleSubmit(handleSubmitClick)} className='flex gap-4 flex-col bg-background px-5 rounded-lg xs:min-w-80'>
+        <div className='p-0.5 bg-gradient-to-b from-[#1E9AC8] to-[#8E2CFE] rounded-[10px] max-w-96 md:max-w-96 w-full'>
+            <div className='flex flex-col gap-4 bg-background px-4 py-4 rounded-lg max-w-96 md:max-w-96 relative box-border w-full'>
+                <form onSubmit={handleSubmit(handleSubmitClick)} className='flex gap-4 flex-col bg-background px-5 rounded-lg xs:min-w-80 w-full'>
                     <div className='flex flex-col gap-2'>
                         <Input
                             register={register}
