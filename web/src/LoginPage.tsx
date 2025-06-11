@@ -9,6 +9,8 @@ import toast from "react-hot-toast";
 import {useAuth} from "./providers/authProvider.tsx";
 import Button from "./components/Button.tsx";
 import {useTranslation} from "react-i18next";
+import LangButton from "./components/LangButton.tsx";
+import {useLoadDefaultLanguage} from "./translations.ts";
 
 
 type LoginForm = {
@@ -23,6 +25,8 @@ function LoginPage() {
   const {errors, handleError, clearErrors} = useErrorHandler();
   const [params] = useSearchParams();
   const {t} = useTranslation('login');
+
+  useLoadDefaultLanguage();
 
   useEffect(() => {
     const message = params.get('message');
@@ -86,6 +90,9 @@ function LoginPage() {
             </div>
           </a>
         </form>
+      </div>
+      <div className='absolute -left-6 top-0'>
+        <LangButton/>
       </div>
     </div>
   )

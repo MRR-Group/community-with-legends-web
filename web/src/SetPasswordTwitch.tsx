@@ -5,6 +5,8 @@ import {useCore} from "./providers/coreProvider.tsx";
 import {useNavigate, useParams} from "react-router";
 import {useTranslation} from "react-i18next";
 import Button from "./components/Button.tsx";
+import LangButton from "./components/LangButton.tsx";
+import {useLoadDefaultLanguage} from "./translations.ts";
 
 type SetPasswordForm = {
   password: string,
@@ -18,6 +20,8 @@ function SetPasswordTwitchPage() {
   const navigate = useNavigate();
   const {id} = useParams();
   const {t} = useTranslation('setPasswordTwitch');
+
+  useLoadDefaultLanguage();
 
   const onSubmit: SubmitHandler<SetPasswordForm> = async (data) => {
     try {
@@ -57,6 +61,9 @@ function SetPasswordTwitchPage() {
             <Button value={t('Confirm')}/>
           </div>
         </form>
+      </div>
+      <div className='absolute -left-6 top-0'>
+        <LangButton/>
       </div>
     </div>
   )

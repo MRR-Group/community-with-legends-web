@@ -1,6 +1,5 @@
 import {useTranslation} from "react-i18next";
 import {useLocalStorage} from "react-use";
-import {useEffect} from "react";
 
 export default function LangButton() {
   const {i18n} = useTranslation();
@@ -16,10 +15,6 @@ export default function LangButton() {
       setCurrentLang("en");
     }
   }
-
-  useEffect(() => {
-    i18n.changeLanguage(currentLang);
-  }, []);
 
   return (
     <li className='flex flex-row gap-1 items-center h-10 transition-colors delay-100 text-text hover:text-primary group cursor-pointer ml-10' onClick={handleOnClick}>

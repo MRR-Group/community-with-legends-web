@@ -18,8 +18,11 @@ import UserPostsPage from "./UserPostsPage.tsx";
 import UserProfilePage from "./UserProfilePage.tsx";
 import {InitTranslation} from "./translations.ts";
 import SetPasswordTwitchPage from "./SetPasswordTwitch.tsx";
+import {InitNotification} from "./notifications.ts";
 
 InitTranslation();
+
+InitNotification();
 
 const router = createBrowserRouter([
   {

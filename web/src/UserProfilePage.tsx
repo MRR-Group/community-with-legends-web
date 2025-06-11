@@ -16,6 +16,7 @@ import {useAuth} from "./providers/authProvider.tsx";
 import ProposalsList from "./components/ProposalsList.tsx";
 import Proposal from "../../core/src/entities/proposal.ts";
 import {useTranslation} from "react-i18next";
+import {useLoadDefaultLanguage} from "./translations.ts";
 
 function UserProfilePage() {
   const {userRepository, gameOnListRepository, addGameToListUseCase, removeGameFromListUseCase, proposalRepository, createProposalUseCase, acceptProposalUseCase, rejectProposalUseCase} = useCore();
@@ -28,6 +29,8 @@ function UserProfilePage() {
   const {errors, handleError, clearErrors} = useErrorHandler();
   const [inEditMode, setInEditMode] = useState<boolean>(false);
   const {t} = useTranslation('profilePage');
+
+  useLoadDefaultLanguage();
 
   async function showUser() {
     try {

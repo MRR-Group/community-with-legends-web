@@ -3,9 +3,11 @@ import {AxiosError} from "axios";
 import toast from "react-hot-toast";
 import ValidationException from "../../../core/src/exceptions/validationException.ts";
 import CustomException from "../../../core/src/exceptions/customException.ts";
+import {useTranslation} from "react-i18next";
 
 function useErrorHandler() {
     const [errors, setErrors] = useState<{[key: string]: string[]}>({});
+    const {t} = useTranslation('errors');
 
     function handleError(err: Error) {
         if (err instanceof AxiosError && err.status === 422) {
@@ -17,13 +19,13 @@ function useErrorHandler() {
         else if (err instanceof ValidationException) {
             setErrors((errors) => {
                 const copy = {...errors}
-                copy[err.category] = [err.message];
+                copy[err.category] = [t(err.constructor.name)];
 
                 return copy;
             })
         }
         else if (err instanceof CustomException) {
-            toast.error(err.message);
+            toast.error(t(err.constructor.name));
         }
     }
 

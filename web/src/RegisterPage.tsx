@@ -7,6 +7,8 @@ import useErrorHandler from "./utils/useErrorHandler.ts";
 import Input from "./components/Input.tsx";
 import Button from "./components/Button.tsx";
 import {useTranslation} from "react-i18next";
+import LangButton from "./components/LangButton.tsx";
+import {useLoadDefaultLanguage} from "./translations.ts";
 
 type RegisterForm = {
   name: string,
@@ -21,6 +23,8 @@ function RegisterPage() {
   const navigate = useNavigate();
   const {errors, handleError, clearErrors} = useErrorHandler();
   const {t} = useTranslation('register');
+
+  useLoadDefaultLanguage();
 
   const onSubmit: SubmitHandler<RegisterForm> = async (data) => {
     try {
@@ -40,39 +44,39 @@ function RegisterPage() {
         <form onSubmit={handleSubmit(onSubmit)} className='flex gap-4 flex-col bg-background px-5 py-4 rounded-lg min-w-80'>
           <h1 className='text-4xl text-center pb-5'>{t('RegisterTitle')}</h1>
           <Input
-              register={register}
-              errors={errors}
-              title={t('Enter your name')}
-              type='text'
-              placeholder={t('name')}
-              name='name'
+            register={register}
+            errors={errors}
+            title={t('Enter your name')}
+            type='text'
+            placeholder={t('name')}
+            name='name'
           />
 
           <Input
-              register={register}
-              errors={errors}
-              title={t('Enter your email')}
-              type='email'
-              placeholder={t('email')}
-              name='email'
+            register={register}
+            errors={errors}
+            title={t('Enter your email')}
+            type='email'
+            placeholder={t('email')}
+            name='email'
           />
 
           <Input
-              register={register}
-              errors={errors}
-              title={t('Enter your password')}
-              type='password'
-              placeholder={t('password')}
-              name='password'
+            register={register}
+            errors={errors}
+            title={t('Enter your password')}
+            type='password'
+            placeholder={t('password')}
+            name='password'
           />
 
           <Input
-              register={register}
-              errors={errors}
-              title={t('Confirm your password')}
-              type='password'
-              placeholder={t('repeat password')}
-              name='confirmPassword'
+            register={register}
+            errors={errors}
+            title={t('Confirm your password')}
+            type='password'
+            placeholder={t('repeat password')}
+            name='confirmPassword'
           />
 
           <AuthRedirectText message={t('Already have an account?')} actionText={t('to login')} link={"/login"}/>
@@ -89,6 +93,9 @@ function RegisterPage() {
             </a>
           </div>
         </form>
+      </div>
+      <div className='absolute -left-6 top-0'>
+        <LangButton/>
       </div>
     </div>
   )

@@ -5,62 +5,65 @@ import Post from "./components/Post.tsx";
 import PostModel from "../../core/src/entities/post.ts";
 import {useWindowSize} from "react-use";
 import {useParams} from "react-router";
+import {useLoadDefaultLanguage} from "./translations.ts";
 
 const splitIntoColumns = (posts: PostModel[], columns: number): PostModel[][] => {
-    const result: PostModel[][] = Array.from({length: columns}, () => []);
+  const result: PostModel[][] = Array.from({length: columns}, () => []);
 
-    if (posts.length < columns) {
-        return [posts];
-    }
+  if (posts.length < columns) {
+    return [posts];
+  }
 
-    posts.forEach((post, index) => {
-        result[index % columns].push(post);
-    });
+  posts.forEach((post, index) => {
+    result[index % columns].push(post);
+  });
 
-    return result;
+  return result;
 };
 
 function UserPostsPage() {
-    const {postsRepository} = useCore();
-    const [posts, setPosts] = useState<PostModel[]>([]);
-    const screen = useWindowSize();
-    const {id} = useParams();
+  const {postsRepository} = useCore();
+  const [posts, setPosts] = useState<PostModel[]>([]);
+  const screen = useWindowSize();
+  const {id} = useParams();
 
-    function handlePostHide(post: PostModel) {
-        const id = post.id;
+  useLoadDefaultLanguage();
 
-        setPosts((posts) => posts.filter((post) => post.id !== id));
-    }
+  function handlePostHide(post: PostModel) {
+    const id = post.id;
 
-    async function reloadPosts() {
-        const posts = await postsRepository.byUser(Number(id));
-        setPosts(posts);
-    }
+    setPosts((posts) => posts.filter((post) => post.id !== id));
+  }
 
-    const columns = useMemo(() => {
-        const postSize = 576;
+  async function reloadPosts() {
+    const posts = await postsRepository.byUser(Number(id));
+    setPosts(posts);
+  }
 
-        return splitIntoColumns(posts, Math.max(Math.floor(screen.width/postSize), 1));
-    }, [screen, posts]);
+  const columns = useMemo(() => {
+    const postSize = 576;
 
-    useEffect(() => {
-        reloadPosts();
-    }, []);
+    return splitIntoColumns(posts, Math.max(Math.floor(screen.width/postSize), 1));
+  }, [screen, posts]);
 
-    return (
-        <div>
-            <NavigationBar active="userPosts"/>
-            <div className='flex flex-wrap justify-evenly'>
-                {columns.map((columnPosts, colIdx) => (
-                    <div key={colIdx} className="flex flex-col gap-8 p-4 md:p-0 md:pb-4 pb-16">
-                        {columnPosts.map(post => (
-                            <Post data={post} key={post.id} onHide={handlePostHide}/>
-                        ))}
-                    </div>
-                ))}
-            </div>
-        </div>
-    )
+  useEffect(() => {
+    reloadPosts();
+  }, []);
+
+  return (
+    <div>
+      <NavigationBar active="userPosts"/>
+      <div className='flex flex-wrap justify-evenly'>
+        {columns.map((columnPosts, colIdx) => (
+          <div key={colIdx} className="flex flex-col gap-8 p-4 md:p-0 md:pb-4 pb-16">
+            {columnPosts.map(post => (
+              <Post data={post} key={post.id} onHide={handlePostHide}/>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 export default UserPostsPage

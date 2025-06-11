@@ -9,6 +9,8 @@ import CreatePost, {SubmitProp} from "./components/CreatePost.tsx";
 import useErrorHandler from "./utils/useErrorHandler.ts";
 import {useAuth} from "./providers/authProvider.tsx";
 import InfiniteScroll from "react-infinite-scroll-component";
+import {useLoadDefaultLanguage} from "./translations.ts";
+import {useNotification} from "./notifications.ts";
 
 const splitIntoColumns = (posts: PostModel[], columns: number): PostModel[][] => {
   const result: PostModel[][] = Array.from({length: columns}, () => []);
@@ -32,6 +34,9 @@ function FeedPage() {
   const {errors, handleError, clearErrors} = useErrorHandler();
   const [page, setPage] = useState(1);
   const [reachedEnd, setReachedEnd] = useState(false);
+
+  useLoadDefaultLanguage();
+  useNotification();
 
   function handlePostHide(post: PostModel) {
     const id = post.id;

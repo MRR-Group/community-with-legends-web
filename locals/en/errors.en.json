@@ -1,0 +1,8 @@
+{
+  "CannotPostException": "Something went wrong",
+  "InvalidEmailException": "Email should contain @ character",
+  "InvalidPasswordException": "Password must be of 8 characters, contain lower and upper case letter",
+  "PasswordsDoNotMatchException": "Passwords does not match",
+  "UnauthenticatedException": "You must be logged in to do that",
+  "UnsupportedAssetTypeException": "Unsupported asset type"
+}

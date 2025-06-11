@@ -1,0 +1,8 @@
+{
+  "CannotPostException": "Coś poszło nie tak",
+  "InvalidEmailException": "Adres email musi zawierać znak @",
+  "InvalidPasswordException": "Hasło musi mieć co najmniej 8 znaków i zawierać małe oraz wielkie litery",
+  "PasswordsDoNotMatchException": "Hasła nie są takie same",
+  "UnauthenticatedException": "Musisz być zalogowany, aby to zrobić",
+  "UnsupportedAssetTypeException": "Nieobsługiwany typ zasobu"
+}

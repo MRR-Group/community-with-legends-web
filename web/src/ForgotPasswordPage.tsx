@@ -6,6 +6,7 @@ import {useCore} from "./providers/coreProvider.tsx";
 import {useNavigate} from "react-router";
 import {useTranslation} from "react-i18next";
 import Button from "./components/Button.tsx";
+import LangButton from "./components/LangButton.tsx";
 
 type ForgotPasswordForm = {
   email: string,
@@ -51,6 +52,9 @@ function ForgotPasswordPage() {
             <Button value={t('Send code')}/>
           </div>
         </form>
+      </div>
+      <div className='absolute -left-6 top-0'>
+        <LangButton/>
       </div>
     </div>
   )
