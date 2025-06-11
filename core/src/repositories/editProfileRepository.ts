@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 export default class EditProfileRepository {
   public async changeAvatar(avatar: File): Promise<void> {
     const formData = new FormData();
