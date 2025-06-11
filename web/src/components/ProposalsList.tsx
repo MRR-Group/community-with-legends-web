@@ -25,7 +25,7 @@ interface SelectElement {
 
 export default function ProposalsList({proposals, addProposal, acceptProposal, rejectProposal, user}: ProposalsListProps) {
   const [selectedGame, setGame] = useState<SelectElement|null>(null);
-  const {loggedUser} = useAuth();
+  const {loggedUser, isLoggedIn} = useAuth();
   const {t} = useTranslation('profilePage');
 
   async function handleAddProposal() {
@@ -62,7 +62,7 @@ export default function ProposalsList({proposals, addProposal, acceptProposal, r
           />
         ))}
       </div>
-      <Show when={loggedUser?.id !== user.id}>
+      <Show when={loggedUser?.id !== user.id && isLoggedIn}>
         <div className='flex flex-col items-center w-full px-4 pt-3'>
           <SelectFetch
             styles={{
