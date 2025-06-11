@@ -128,7 +128,7 @@ export default function Post({data, onHide, isInPreview}: PostProps) {
             ))}
           </div>
         </Show>
-        <div className='break-all'>
+        <div className='break-words whitespace-pre-line'>
           {data.content}
         </div>
         <div>
