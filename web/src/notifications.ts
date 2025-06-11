@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 export function InitNotification() {
   configureEcho({
     broadcaster: "pusher",
-    key: "a2bdddc8bb42d53f5e2b",
+    key: import.meta.env.VITE_REVERB_APP_KEY,
     cluster: "eu",
     forceTLS: true,
     authEndpoint: '/api/broadcasting/auth',

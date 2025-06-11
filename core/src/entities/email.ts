@@ -1,17 +1,17 @@
 import InvalidEmailException from "../exceptions/invalidEmailException.ts";
 
 export class Email {
-    public readonly value: string;
+  public readonly value: string;
 
-    public constructor(value: string) {
-        if(!this.isValidEmail(value)) {
-            throw new InvalidEmailException();
-        }
-
-        this.value = value;
+  public constructor(value: string) {
+    if(!this.isValidEmail(value)) {
+      throw new InvalidEmailException();
     }
 
-    private isValidEmail(email: string): boolean {
-        return email.includes('@');
-    }
+    this.value = value;
+  }
+
+  private isValidEmail(email: string): boolean {
+    return email.includes('@');
+  }
 }

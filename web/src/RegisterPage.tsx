@@ -29,9 +29,8 @@ function RegisterPage() {
   const onSubmit: SubmitHandler<RegisterForm> = async (data) => {
     try {
       clearErrors();
-      console.log(data);
-      await registerUseCase.register(data.name, data.email, data.password, data.confirmPassword)
-      navigate("/login")
+      await registerUseCase.register(data.name, data.email, data.password, data.confirmPassword);
+      navigate("/login");
     }
     catch (e: any) {
       handleError(e);
@@ -51,7 +50,6 @@ function RegisterPage() {
             placeholder={t('name')}
             name='name'
           />
-
           <Input
             register={register}
             errors={errors}
@@ -60,7 +58,6 @@ function RegisterPage() {
             placeholder={t('email')}
             name='email'
           />
-
           <Input
             register={register}
             errors={errors}
@@ -69,7 +66,6 @@ function RegisterPage() {
             placeholder={t('password')}
             name='password'
           />
-
           <Input
             register={register}
             errors={errors}
@@ -78,13 +74,10 @@ function RegisterPage() {
             placeholder={t('repeat password')}
             name='confirmPassword'
           />
-
           <AuthRedirectText message={t('Already have an account?')} actionText={t('to login')} link={"/login"}/>
-
           <div className='flex justify-center w-full pb-4 pt-1'>
             <Button value={t('Register')}/>
           </div>
-
           <div>
             <h1 className='text-2xl text-center'>{t('OR')}</h1>
             <h2 className='text-lg text-center'> {t('Register via')}</h2>

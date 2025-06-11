@@ -7,6 +7,5 @@ export default interface HardwareDto {
 }
 
 export function hardwareDtoToEntity(data: HardwareDto):Hardware {
-
   return new Hardware(data.id, data.title, data.value);
 }

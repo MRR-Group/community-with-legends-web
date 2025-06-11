@@ -48,11 +48,13 @@ function UserProfilePage() {
 
   async function getUserGames() {
     const games = await gameOnListRepository.byUser(Number(id));
+
     setUserGames(games);
   }
 
   async function getUserProposals() {
     const proposals = await proposalRepository.byUser(Number(id));
+
     setGameProposals(proposals);
   }
 
@@ -120,7 +122,6 @@ function UserProfilePage() {
   return (
     <div>
       <NavigationBar active='profile'/>
-      
       <div className='p-4 md:px-0'>
         <Show when={!inEditMode}>
           <UserProfile user={user!} onEdit={() => setInEditMode(true)}/>
@@ -129,17 +130,12 @@ function UserProfilePage() {
           <EditProfile data={user!} onHide={() => setInEditMode(false)} onChange={refreshUser}/>
         </Show>
       </div>
-
       <div className='flex justify-center'>
         <a href={`/user/${id}/posts`}>
           <Button value={t('See posts')}/>
         </a>
-
-
       </div>
-
       <UserHardware user={user!}/>
-
       <Show when={loggedUser?.id === Number(id) || userGames.length > 0}>
         <div className='flex flex-col 2.5xl:flex-row gap-6 pt-4 p-4 md:px-0'>
           <GamesList listName={t('Want to play')} listType='to_play' games={userGames} canEdit={loggedUser?.id === Number(id)} errors={errors} onAdd={handleAddGameToList} onDelete={handleRemoveGameFromList}/>
@@ -147,7 +143,6 @@ function UserProfilePage() {
           <GamesList listName={t('Played')} listType='played' games={userGames} canEdit={loggedUser?.id === Number(id)} errors={errors} onAdd={handleAddGameToList} onDelete={handleRemoveGameFromList}/>
         </div>
       </Show>
-
       <div className='pt-4 p-4 md:px-0'>
         <ProposalsList
           proposals={gameProposals}
@@ -157,7 +152,6 @@ function UserProfilePage() {
           user={user!}
         />
       </div>
-
       <div className='md:pb-4 pb-16'>
       </div>
     </div>

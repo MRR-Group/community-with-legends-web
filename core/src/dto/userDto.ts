@@ -11,6 +11,7 @@ export default interface UserDto {
   hasPassword: boolean,
   hasTwitchAccount: boolean,
 }
+
 export function userDtoToEntity(data: UserDto):User {
   return new User(data.id, data.name, data.email, data.avatar, data.permissions, data.hasPassword, data.hasTwitchAccount);
 }

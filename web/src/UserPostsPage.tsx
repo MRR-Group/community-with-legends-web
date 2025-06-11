@@ -37,6 +37,7 @@ function UserPostsPage() {
 
   async function reloadPosts() {
     const posts = await postsRepository.byUser(Number(id));
+
     setPosts(posts);
   }
 

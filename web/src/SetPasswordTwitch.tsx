@@ -47,7 +47,6 @@ function SetPasswordTwitchPage() {
             placeholder={t('password')}
             name='password'
           />
-
           <Input
             register={register}
             errors={errors}
@@ -56,7 +55,6 @@ function SetPasswordTwitchPage() {
             placeholder={t('repeat password')}
             name='confirmPassword'
           />
-
           <div className='flex justify-center w-full pb-4 pt-3'>
             <Button value={t('Confirm')}/>
           </div>

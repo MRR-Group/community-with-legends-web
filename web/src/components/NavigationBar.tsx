@@ -12,7 +12,7 @@ interface NavigationBarProps {
 }
 
 export default function NavigationBar({active}: NavigationBarProps) {
-  const { isLoggedIn, logOut } = useAuth();
+  const {isLoggedIn, logOut} = useAuth();
   const {authRepository} = useCore();
   const navigate = useNavigate();
   const {t} = useTranslation('navigationBar');
@@ -48,7 +48,6 @@ export default function NavigationBar({active}: NavigationBarProps) {
               </div>
             </a>
           </Show>
-
           <Show when={isLoggedIn}>
             <div
               onClick={logOut}

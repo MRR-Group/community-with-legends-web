@@ -81,6 +81,7 @@ export default function EditGamesList({games, errors, onAdd, onDelete, onDone, l
               limit: 10
             }}
           />
+
           <ErrorMessage errors={errors} category="game_id"/>
           <div className='pt-3'>
             <Button value={t('Add game')} onClick={handleAddGame}/>

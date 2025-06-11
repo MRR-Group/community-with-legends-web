@@ -1,6 +1,5 @@
 import UserRepository from "../repositories/userRepository.ts";
 
-
 export class ReportUserUseCase {
   private _userRepository: UserRepository;
 

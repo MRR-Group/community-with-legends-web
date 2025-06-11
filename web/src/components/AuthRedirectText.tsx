@@ -7,6 +7,7 @@ interface AuthRedirectTextProps{
 }
 export default function AuthRedirectText({message, actionText, link}: AuthRedirectTextProps) {
   const {t} = useTranslation('login');
+
   return (
     <div className='flex items-center justify-between'>
       <div className='flex-1 text-xs text-wrap max-w-32'>{message}</div>

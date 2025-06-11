@@ -14,7 +14,6 @@ export default function NavButton({active, text, icon, onClick}: NavButtonProps)
         <path
           d={icon} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-
       <div className="hidden lg:block">
         {text}
       </div>

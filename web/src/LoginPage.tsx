@@ -53,27 +53,23 @@ function LoginPage() {
         <form onSubmit={handleSubmit(onSubmit)} className='flex gap-4 flex-col bg-background px-5 py-4 rounded-lg min-w-80'>
           <h1 className='text-4xl text-center pb-5'>{t('LoginTitle')}</h1>
           <Input
-              register={register}
-              errors={errors}
-              title={t('Enter your email')}
-              type='email'
-              placeholder={t('email')}
-              name='email'
+            register={register}
+            errors={errors}
+            title={t('Enter your email')}
+            type='email'
+            placeholder={t('email')}
+            name='email'
           />
-
           <AuthRedirectText message={t("You don't have an account?")} actionText={t('to register')} link={"/register"}/>
-
           <Input
-              register={register}
-              errors={errors}
-              title={t('Enter your password')}
-              type='password'
-              placeholder={t('password')}
-              name='password'
+            register={register}
+            errors={errors}
+            title={t('Enter your password')}
+            type='password'
+            placeholder={t('password')}
+            name='password'
           />
-
           <AuthRedirectText message={t("You don't remember?")} actionText={t('to reset it')} link={"/forgot-password"}/>
-
           <div className='flex justify-center w-full pb-4 pt-1'>
             <Button value={t('Login')}/>
           </div>

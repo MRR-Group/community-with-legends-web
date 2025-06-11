@@ -70,9 +70,9 @@ export default function EditProfile({data, onHide, onChange}:EditProfileProps) {
             </div>
           </div>
           <Show when={data.hasTwitchAccount && !data.hasPassword}>
-          <a href={`/user/${data.id}/set-password`}>
-            <Button value={t('Set password')}/>
-          </a>
+            <a href={`/user/${data.id}/set-password`}>
+              <Button value={t('Set password')}/>
+            </a>
           </Show>
           <Button value={t('Go back')} onClick={onHide}/>
         </div>

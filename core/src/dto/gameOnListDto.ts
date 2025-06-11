@@ -3,7 +3,7 @@ import GameOnList from "../entities/gameOnList.ts";
 
 export default interface GameOnListDto {
   id: number,
-  status: string,
+  status: "to_play" | "playing" | "played",
   game: Game,
 }
 
